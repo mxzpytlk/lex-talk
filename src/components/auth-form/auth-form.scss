@@ -1,0 +1,120 @@
+@import '../../style/variables/color';
+
+.auth {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 24px;
+    margin-right: 48px;
+    box-shadow: 0 0 8px 0 $shadow;
+    border-radius: 8px;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  &__hr {
+    opacity: .25;
+    height: 1px;
+    color: black;
+    width: 100%;
+    background-color: black;
+    margin-bottom: 16px;
+  }
+
+  &__input {
+    width: 476px;
+    margin-top: 12px;
+    background-color: $light-gray;
+    padding: 12px 16px;
+    border-radius: 20px;
+    border: none;
+    outline: none !important;
+    font-size: 1.18rem;
+
+    &::placeholder {
+      font-size: 1.18rem;
+      line-height: 1.3;
+    }
+
+    &:hover {
+      background-color: $gray;
+    }
+
+    &:focus {
+      background-color: $dark-gray;
+
+      &::placeholder {
+        color: $white;
+      }
+    }
+  }
+
+  &__message {
+    font-weight: bolder;
+    padding-top: 8px;
+    padding-left: 2px;
+
+    &_link {
+      color: $primary;
+
+      &:hover {
+        color: $secondary;
+      }
+    }
+  }
+
+  &__submit {
+    cursor: pointer;
+    background-color: $primary;
+    width: 98px;
+    height: 43px;
+    color: $white;
+    border: none;
+    border-radius: 8px;
+    font-size: large;
+    padding: 8px 16px;
+    transition: .15s ease-in-out;
+
+    &:hover {
+      filter: drop-shadow(0 0 8px $primary);
+    }
+  }
+
+  &__or {
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__google {
+    border-radius: 28px;
+    border: 3px solid black;
+    font-size: large;
+    font-weight: bolder;
+    background-color: $white;
+    padding: 8px 12px;
+    width: 230px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: black;
+      color: $white;
+    }
+
+    &_icon {
+      margin-right: 4px;
+      transition: 0s;
+    }
+  }
+}

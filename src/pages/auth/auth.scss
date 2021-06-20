@@ -10,10 +10,13 @@ $circle-transition: -170px;
     background-image: url('../../assets/yellow_circle.svg');
     background-repeat: no-repeat;
     background-position: $circle-transition $circle-transition;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 
   &__animated {
-    position: relative;
+    position: absolute;
     transition: 0s;
     top: 160px;
     left: 240px;
