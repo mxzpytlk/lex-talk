@@ -2,6 +2,9 @@
 
 .nav {
   height: 56px;
+  width: 100vw;
+  z-index: 100;
+  position: fixed;
   background-color: $white;
   box-shadow: 0 0 24px -6px $shadow;
   display: flex;

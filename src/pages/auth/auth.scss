@@ -1,0 +1,37 @@
+@import '../../style/variables/color';
+
+$circle-transition: -170px;
+
+.auth {
+  height: 100vh;
+
+  &__container {
+    height: 100vh;
+    background-image: url('../../assets/yellow_circle.svg');
+    background-repeat: no-repeat;
+    background-position: $circle-transition $circle-transition;
+  }
+
+  &__animated {
+    position: relative;
+    transition: 0s;
+    top: 160px;
+    left: 240px;
+    filter: drop-shadow(0 0 6px $shadow);
+    animation: slip 4s ease-in-out infinite;
+  }
+}
+
+@keyframes slip {
+  0% {
+    transform: translateY(5%);
+  }
+
+  50% {
+    transform: translatey(-5%);
+  }
+
+  100% {
+    transform: translatey(5%);
+  }
+}
