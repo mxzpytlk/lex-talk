@@ -1,0 +1,10 @@
+query($email: String!, $password: String!) {
+  login(email: $email password: $password) {
+    user {
+      id
+    }
+    jwt {
+      accesToken refreshToken
+    }
+  }
+}

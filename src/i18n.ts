@@ -9,7 +9,7 @@ import { initReactI18next } from 'react-i18next';
   .use(initReactI18next)
   .init(({
     fallbackLng: 'en',
-    debug: true,
+    debug: false,
     detection: {
       order: ['queryString', 'cookie'],
       cache: ['cookie'],

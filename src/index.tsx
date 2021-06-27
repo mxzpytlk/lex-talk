@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -7,16 +7,32 @@ import './fontawesome';
 import './i18n';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import { Store } from './store/store';
 
 const history = createBrowserHistory();
+const store = new Store();
+
+interface IStore {
+	store: Store;
+}
+
+export const Context = createContext<IStore>({
+	store,
+});
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router history={history}>
-      <App />
-    </Router>
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<Context.Provider
+			value={{
+				store,
+			}}
+		>
+			<Router history={history}>
+				<App />
+			</Router>
+		</Context.Provider>
+	</React.StrictMode>,
+	document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

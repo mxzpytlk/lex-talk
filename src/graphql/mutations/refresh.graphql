@@ -1,0 +1,10 @@
+mutation {
+  refresh {
+    user {
+      id isActivated
+    }
+    jwt {
+      accesToken
+    }
+  }
+}

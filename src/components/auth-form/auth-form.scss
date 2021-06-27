@@ -28,6 +28,7 @@
   }
 
   &__input {
+    display: block;
     width: 476px;
     margin-top: 12px;
     background-color: $light-gray;
@@ -116,5 +117,17 @@
       margin-right: 4px;
       transition: 0s;
     }
+  }
+
+  &__err {
+    color: $pinkish-red;
+    display: block;
+    margin-top: 5px;
+  }
+
+  &__success {
+    display: block;
+    margin-top: 5px;
+    font-size: 1.2rem;
   }
 }
