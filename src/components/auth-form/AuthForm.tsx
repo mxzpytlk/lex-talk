@@ -150,14 +150,6 @@ export function AuthForm() {
           </span>}
 				</Form>
 			</Formik>
-			<h5 className="auth__or">{t('common.or')}</h5>
-			<button className="auth__google">
-				<FontAwesomeIcon
-					icon={['fab', 'google']}
-					className="auth__google_icon"
-				/>
-				{t('auth.google')}
-			</button>
 		</div>
 	);
 }

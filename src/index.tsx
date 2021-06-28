@@ -8,6 +8,7 @@ import './i18n';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { Store } from './store/store';
+import {} from 'apollo-boost';
 
 const history = createBrowserHistory();
 const store = new Store();
@@ -15,6 +16,18 @@ const store = new Store();
 interface IStore {
 	store: Store;
 }
+
+var firebaseConfig = {
+  apiKey: 'AIzaSyCn8F22geVz0MX1bTvOr1FUakG-_OiYJcc',
+  authDomain: 'lex-talk.firebaseapp.com',
+  projectId: 'lex-talk',
+  storageBucket: 'lex-talk.appspot.com',
+  messagingSenderId: '1072157726674',
+  appId: '1:1072157726674:web:162760a8d590167e515a0b',
+  measurementId: 'G-KXEF49M0R6'
+};
+// Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
 
 export const Context = createContext<IStore>({
 	store,
