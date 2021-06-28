@@ -2,7 +2,7 @@ import './auth-form.scss';
 import { useTranslation } from 'react-i18next';
 import { useRouteMatch } from 'react-router';
 import { RouterPath } from '../../core/enums/router-path';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Formik, Field, Form } from 'formik';
 import { IAuth } from '../../core/data/auth-data';
@@ -22,12 +22,20 @@ export function AuthForm() {
   const [{ data: loginData, error: loginError }, login] = useLogin();
   const register = useRegister();
 
-  if (loginData) {
-    store.auth(loginData.login);
-  }
+  useEffect(() => {
+    if (loginError?.message) {
+      const message = (loginError.networkError as any)
+        ?.result?.errors?.[0]?.message;
 
-  if (loginError) {
-    setErrMessage(loginError.message);
+      if (message) {
+        setErrMessage(message);
+      }
+    }
+  },
+  [loginError]);
+
+  if (loginData?.login) {
+    store.auth(loginData.login);
   }
 
 	const isRegisterPage = () => match.path === '/register';
@@ -64,7 +72,17 @@ export function AuthForm() {
       }
       successAuth = registerData?.data?.register;
     } else {
-      successAuth = (await login(values))?.data?.login;
+      try {
+        const loginData = await login(values);
+        successAuth = loginData?.data?.login;
+      } catch(e) {
+        const message = (e?.networkError as any)
+        ?.result?.errors?.[0]?.message;
+
+        if (message) {
+          setErrMessage(message);
+        }
+      }
     }
 
     if (successAuth) {

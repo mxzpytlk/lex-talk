@@ -4,6 +4,7 @@ import { IAuthSuccess, IRefrshMutation } from '../core/data/auth-data';
 import { IUser } from '../core/data/user-data';
 import { AuthService } from '../service/auth.service';
 import { client } from '../graphql/';
+import { timeStamp } from 'console';
 
 const REFRESH_MUTATION = loader('../graphql/mutations/refresh.graphql');
 
@@ -26,7 +27,7 @@ export class Store {
   public auth(auth: IAuthSuccess) {
     AuthService.auth(auth);
     this.setIsAuth(true);
-    this.setUser(auth.user);
+    this.setUser(auth?.user);
   }
 
   public async checkAuth(): Promise<void> {
@@ -37,6 +38,6 @@ export class Store {
       if (res.data?.refresh) {
         this.auth(res?.data?.refresh);
       }
-    } catch (e) {}
+    } catch (e) { } finally { }
   }
 }

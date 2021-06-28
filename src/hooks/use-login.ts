@@ -14,20 +14,21 @@ export function useLogin(): [
 		LOGIN_QUERY,
 		{
 			errorPolicy: 'all',
-			onError(error) {
-				console.log({ ...error });
-			},
+			// onError(error) {
+			// 	console.log({ ...error });
+			// },
 		}
 	);
+
 
 	const { refetch } = loginData;
 
 	const login = async (auth: IAuth) => {
-		if (!!refetch) {
-			return await refetch(auth);
-		} else {
-			loginQuery({ variables: auth });
-		}
+    if (!!refetch) {
+      return await refetch(auth);
+    } else {
+      loginQuery({ variables: auth });
+    }
 	};
 	return [loginData, login];
 }

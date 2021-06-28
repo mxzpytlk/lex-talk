@@ -6,8 +6,6 @@ export class AuthService {
     const token = loginData?.jwt?.accesToken;
     if (token) {
       localStorage.setItem(LocalStorageKey.TOKEN, token);
-    } else {
-      throw new Error('No token');
     }
   }
 }

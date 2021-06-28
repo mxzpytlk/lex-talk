@@ -7,12 +7,12 @@ const httpLink = new HttpLink({
   credentials: 'include'
 });
 
-const logoutLink = onError((data) => {
-  console.log('HERE');
-});
+// const logoutLink = onError((data) => {
+//   console.log('HERE');
+// });
 
 
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: from([authMiddleware, logoutLink, httpLink]),
+  link: from([authMiddleware, /* logoutLink,*/ httpLink]),
 });
