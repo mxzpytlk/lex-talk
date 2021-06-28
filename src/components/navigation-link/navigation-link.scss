@@ -1,0 +1,38 @@
+@import '../../style/variables/color';
+
+.link {
+  padding-bottom: 1px;
+  position: relative;
+
+  &:not(:first-child) {  
+    margin-left: 8px;
+  }
+
+  &__active {
+    color: $secondary;
+    border-bottom: 2px solid $secondary;
+  }
+
+  &__not-active {
+    color: $primary;
+
+    &:hover {
+      & .link__border {
+        width: 100%;
+      }
+    }
+  }
+
+  &__border {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: $primary;
+  }
+
+  &__icon {
+    margin-left: 4px;
+  }
+}

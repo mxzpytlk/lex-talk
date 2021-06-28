@@ -1,4 +1,4 @@
-import { Navbar } from '../../components/navbar/Navbar';
+import Navbar from '../../components/navbar/Navbar';
 import animatedLogo from '../../assets/back-animation.svg';
 import './auth.scss';
 import React from 'react';

@@ -1,0 +1,38 @@
+@import './variables/color';
+
+.lt {
+  &__input {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 12px;
+    background-color: $light-gray;
+    padding: 12px 16px;
+    border-radius: 20px;
+    border: none;
+    outline: none !important;
+    font-size: 1.18rem;
+    box-sizing: border-box;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &::placeholder {
+      font-size: 1.18rem;
+      line-height: 1.3;
+    }
+
+    &:hover {
+      background-color: $gray;
+    }
+
+    &:focus {
+      background-color: $dark-gray;
+
+      &::placeholder {
+        color: $white;
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@import '../../style/variables/size';
+@import '../../style/variables/color';
+
+.main {
+  margin-top: $navbar-height;
+  height: calc(100vh - #{$navbar-height});
+  max-height: calc(100vh - #{$navbar-height});
+  box-sizing: border-box;
+  background-color: $background;
+}

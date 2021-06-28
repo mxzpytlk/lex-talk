@@ -1,9 +1,9 @@
 import './auth-form.scss';
+import '../../style/input.scss';
 import { useTranslation } from 'react-i18next';
-import { useRouteMatch } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 import { RouterPath } from '../../core/enums/router-path';
 import React, { useContext, useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Formik, Field, Form } from 'formik';
 import { IAuth } from '../../core/data/auth-data';
 import { useLogin } from '../../hooks/use-login';
@@ -11,6 +11,8 @@ import { Context } from '../..';
 import { useRegister } from '../../hooks/use-register';
 
 export function AuthForm() {
+  const history = useHistory();
+
 	const { t } = useTranslation();
 	const match = useRouteMatch();
 
@@ -36,6 +38,7 @@ export function AuthForm() {
 
   if (loginData?.login) {
     store.auth(loginData.login);
+    history.push(RouterPath.DEFAULT);
   }
 
 	const isRegisterPage = () => match.path === '/register';
@@ -106,20 +109,20 @@ export function AuthForm() {
 					<Field
 						type="email"
 						placeholder="Email"
-						className="auth__input"
+						className="lt__input"
 						name="email"
 					/>
 					<Field
 						type="password"
 						placeholder={t('auth.password')}
-						className="auth__input"
+						className="lt__input"
 						name="password"
 					/>
 					{isRegisterPage() && (
 						<Field
 							type="password"
 							placeholder={t('auth.confirm')}
-							className="auth__input"
+							className="lt__input"
               name='repeatPass'
 						/>
 					)}

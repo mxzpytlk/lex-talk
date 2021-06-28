@@ -1,22 +1,17 @@
 import './navbar.scss';
 import logo from '../../assets/logo.svg';
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useTranslation } from 'react-i18next';
-import { useRouteMatch } from 'react-router';
-import classNames from 'classnames';
+import React, { useContext } from 'react';
+import { NavigationLink } from '../navigation-link/NavigationLink';
+import { INavigationLink, links } from '../../core/data/navigation-link';
+import { observer } from 'mobx-react-lite';
+import { Context } from '../..';
 
-export function Navbar() {
-	const { t } = useTranslation();
-	const match = useRouteMatch();
+function Navbar() {
 
-	const pathDict: Record<string, string[]> = {
-		login: ['/', '/login'],
-		register: ['/register'],
-	};
+	const { store } = useContext(Context);
 
-	const isActive = (path: string) =>
-		pathDict[path].find((item) => item === match.path);
+  const isActive = (link: INavigationLink) => store.isAuth === link.needAuth;
+
 
 	return (
 		<nav className="nav">
@@ -25,37 +20,12 @@ export function Navbar() {
 				<span className="nav__app_name">lextalk</span>
 			</div>
 			<div className="nav__btns">
-				<a
-					href="/login"
-					className={classNames(
-						'nav__btns_link',
-						isActive('login') ?
-              'nav__btns_active' : 'nav__btns_not-active'
-					)}
-				>
-					{t('auth.log_in')}
-					<FontAwesomeIcon
-						icon={['fas', 'sign-in-alt']}
-						className="nav__btns_icon"
-					/>
-					<div className="nav__btns_border"></div>
-				</a>
-				<a
-					href="/register"
-					className={classNames(
-						'nav__btns_link',
-						isActive('register') ?
-              'nav__btns_active' : 'nav__btns_not-active'
-					)}
-				>
-					{t('auth.register')}
-					<FontAwesomeIcon
-						icon={['fas', 'user-plus']}
-						className="nav__btns_icon"
-					/>
-					<div className="nav__btns_border"></div>
-				</a>
+        {links
+          .filter(isActive)
+          .map((link) => <NavigationLink link={link} key={link.text} />)}
 			</div>
 		</nav>
 	);
 }
+
+export default observer(Navbar);

@@ -4,12 +4,11 @@ import { IAuthSuccess, IRefrshMutation } from '../core/data/auth-data';
 import { IUser } from '../core/data/user-data';
 import { AuthService } from '../service/auth.service';
 import { client } from '../graphql/';
-import { timeStamp } from 'console';
 
 const REFRESH_MUTATION = loader('../graphql/mutations/refresh.graphql');
 
 export class Store {
-  public user!: IUser;
+  public user!: IUser | null;
   public isAuth = false;
 
   constructor() {
@@ -20,7 +19,7 @@ export class Store {
     this.isAuth = isAuth;
   }
 
-  public setUser(user: IUser) {
+  public setUser(user: IUser | null) {
     this.user = user;
   }
 
