@@ -21,6 +21,8 @@
   &__picture {
     &_container {
       margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
     }
   }
   
@@ -37,7 +39,7 @@
       cursor: pointer;
     }
 
-    &_hider {
+    &_btn {
       cursor: pointer;
       position: relative;
       background-color: gray;

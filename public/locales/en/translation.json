@@ -2,7 +2,9 @@
   "common": {
     "or": "or",
     "chat": "Chat",
-    "username": "Username"
+    "username": "Username",
+    "select": "Select",
+    "submit": "Submit"
   },
   "auth": {
     "log_in": "Log In",
