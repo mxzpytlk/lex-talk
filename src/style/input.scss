@@ -35,4 +35,19 @@
       }
     }
   }
+
+  &__submit {
+    cursor: pointer;
+    background-color: $primary;
+    color: $white;
+    border: none;
+    border-radius: 8px;
+    font-size: large;
+    padding: 8px 16px;
+    transition: .15s ease-in-out;
+
+    &:hover {
+      filter: drop-shadow(0 0 8px $primary);
+    }
+  }
 }

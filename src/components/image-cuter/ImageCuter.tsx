@@ -5,7 +5,7 @@ import './image-cuter.scss';
 type ImageCuterProps = {
 	file: File,
   shouldCut: boolean,
-  cutFn?: (url: string) => unknown,
+  cutFn?: (img: Blob) => unknown,
 };
 
 export function ImageCuter(props: ImageCuterProps) {
@@ -37,13 +37,13 @@ export function ImageCuter(props: ImageCuterProps) {
 
 	img.src = src;
 
-	img.onload = () => {
+	img.onload = async () => {
 		img.width /= img.naturalHeight / 300;
 		img.height = 300;
 		setWidth(img.width);
 		setHeight(img.height);
     if (props.shouldCut) {
-      props.cutFn?.(scaleAndCutSquareImg(img, -dx, -dy, gridSize));
+      props.cutFn?.(await scaleAndCutSquareImg(img, -dx, -dy, gridSize));
     }
 	};
 

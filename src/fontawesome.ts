@@ -3,7 +3,8 @@ import {
 	faSignInAlt,
 	faUserPlus,
 	faCommentAlt,
-  faSignOutAlt
+	faSignOutAlt,
+	faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faSignInAlt, faUserPlus, faCommentAlt,faSignOutAlt);
+library.add(faSignInAlt, faUserPlus, faCommentAlt, faSignOutAlt, faCheck);

@@ -6,13 +6,18 @@ export function cutImage(
 	y: number,
 	width: number,
 	height: number
-) {
+): Promise<Blob> {
 	const canvas = document.createElement('canvas');
 	canvas.width = width;
 	canvas.height = height;
 	const ctx = canvas.getContext('2d');
 	ctx?.drawImage(img, x, y, width, height, 0, 0, width, height);
-	return canvas.toDataURL('image/jpeg');
+  return new Promise((resolve) => {
+    canvas.toBlob((blob) => {
+      resolve(blob as Blob);
+    }, 'image/jpeg');
+  });
+	// return canvas.toDataURL('image/jpeg');
 }
 
 export function cutSquareImage(img: HTMLImageElement, x: number, y: number, size: number) {

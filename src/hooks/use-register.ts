@@ -7,7 +7,6 @@ const REGISTER_MUTATION = loader('../graphql/mutations/register.graphql');
 export function useRegister(): (
 	values: IAuth
 ) => Promise<ExecutionResult<IRegisterMutation> | undefined> {
-	// eslint-disable-next-line max-len
 	const [registerMutation] = useMutation<IRegisterMutation>(REGISTER_MUTATION);
 
 	const register = async (values: IAuth) => {

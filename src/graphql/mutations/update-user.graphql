@@ -1,0 +1,3 @@
+mutation ($name: String, $about: String, $avatar: Upload) {
+  updateUser(name: $name, about: $about, avatar: $avatar)
+}

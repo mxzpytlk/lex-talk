@@ -1,4 +1,5 @@
 @import '../../style/variables/size';
+@import '../../style/variables/color';
 
 .details {
   height: 100%;
@@ -23,6 +24,7 @@
       margin-top: 20px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
   }
   
@@ -58,5 +60,13 @@
     &_name {
       padding-left: 8px;
     }
+
+    &_success {
+      color: $success;
+    }
+  }
+
+  &__summit {
+    margin-top: 8px;
   }
 }

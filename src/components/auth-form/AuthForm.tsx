@@ -144,7 +144,7 @@ export function AuthForm() {
 						type="submit"
 						value={`${t(isRegisterPage() ?
               'auth.register' : 'auth.login')}`}
-						className="auth__submit"
+						className="lt__submit"
 						name="submit"
 					/>
           {!!errMessage && <span className='auth__err'>{t(errMessage)}</span>}
