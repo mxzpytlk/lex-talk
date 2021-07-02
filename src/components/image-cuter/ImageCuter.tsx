@@ -4,8 +4,8 @@ import './image-cuter.scss';
 
 type ImageCuterProps = {
 	file: File,
-  shouldCut: boolean,
-  cutFn?: (img: Blob) => unknown,
+	shouldCut: boolean,
+	cutFn?: (img: Blob) => unknown,
 };
 
 export function ImageCuter(props: ImageCuterProps) {
@@ -16,9 +16,10 @@ export function ImageCuter(props: ImageCuterProps) {
 	const [posY, setPosY] = useState(0);
 	const [dx, setDx] = useState(0);
 	const [dy, setDy] = useState(0);
+	const [scale, setScale] = useState(1);
 
 	const imgStyle = {
-		transform: `translate(${dx}px, ${dy}px)`,
+		transform: `translate(${dx * scale}px, ${dy * scale}px) scale(${scale})`,
 	};
 
 	const gridSize = width > 300 ? 300 : width;
@@ -31,6 +32,7 @@ export function ImageCuter(props: ImageCuterProps) {
 	useEffect(() => {
 		setDx(0);
 		setDy(0);
+		setScale(1);
 	}, [props.file]);
 
 	const img = new Image();
@@ -42,22 +44,50 @@ export function ImageCuter(props: ImageCuterProps) {
 		img.height = 300;
 		setWidth(img.width);
 		setHeight(img.height);
-    if (props.shouldCut) {
-      props.cutFn?.(await scaleAndCutSquareImg(img, -dx, -dy, gridSize));
-    }
+		if (props.shouldCut) {
+			props.cutFn?.(await scaleAndCutSquareImg(img, -dx, -dy, gridSize, gridSize, scale));
+		}
+	};
+
+	const getDiff = (
+		clientCoord: number,
+		posCoord: number,
+		dif: number,
+		set: (n: number) => void
+	) => {
+		const eps = 3;
+		if (Math.abs(clientCoord - posCoord) <= eps) {
+			return dif;
+		}
+		const directCoef = 5;
+    set(clientCoord);
+		return dif + (clientCoord > posCoord ? directCoef : -directCoef);
 	};
 
 	const onMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		const { clientX, clientY } = e;
-		const widthLimit = (width - gridSize) / 2;
-		const heightLimit = (height - gridSize) / 2;
+		const widthLimit = (width - gridSize / scale) / 2;
+		const heightLimit = (height - gridSize / scale) / 2;
 
-		if (posX && posY) {
-			if (height === 300 && Math.abs(posX - clientX) < widthLimit) {
-				setDx(clientX - posX);
-			} else if (width < height && Math.abs(posY - clientY) <= heightLimit) {
-				setDy(clientY - posY);
+		if (posX || posY) {
+			const resultDx = getDiff(clientX, posX, dx, setPosX);
+			const resultDy = getDiff(clientY, posY, dy, setPosY);
+
+			if (Math.abs(resultDx) < widthLimit) {
+				setDx(resultDx);
 			}
+			if (Math.abs(resultDy) < heightLimit) {
+				setDy(resultDy);
+			}
+		}
+	};
+
+	const onWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+		const deltaY = e.deltaY;
+		const scaleCoef = deltaY > 0 ? 1 / 1.05 : 1.05;
+		const resultScale = scale * scaleCoef;
+		if (resultScale >= 1 && resultScale <= 3) {
+			setScale(resultScale);
 		}
 	};
 
@@ -88,6 +118,7 @@ export function ImageCuter(props: ImageCuterProps) {
 					setPosX(e.clientX);
 					setPosY(e.clientY);
 				}}
+				onWheel={onWheel}
 			>
 				<div className="cut__cutter_side"></div>
 				<div className="cut__cutter_center">

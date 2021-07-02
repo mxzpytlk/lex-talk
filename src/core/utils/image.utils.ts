@@ -5,23 +5,30 @@ export function cutImage(
 	x: number,
 	y: number,
 	width: number,
-	height: number
+	height: number,
+  resultWidth?: number,
+  resultHeight?: number
 ): Promise<Blob> {
 	const canvas = document.createElement('canvas');
-	canvas.width = width;
-	canvas.height = height;
+	canvas.width = resultWidth || width;
+	canvas.height = resultHeight || height;
 	const ctx = canvas.getContext('2d');
-	ctx?.drawImage(img, x, y, width, height, 0, 0, width, height);
+	ctx?.drawImage(img, x, y, width, height, 0, 0, canvas.width, canvas.height);
   return new Promise((resolve) => {
     canvas.toBlob((blob) => {
       resolve(blob as Blob);
     }, 'image/jpeg');
   });
-	// return canvas.toDataURL('image/jpeg');
 }
 
-export function cutSquareImage(img: HTMLImageElement, x: number, y: number, size: number) {
-	return cutImage(img, x, y, size, size);
+export function cutSquareImage(
+    img: HTMLImageElement,
+    x: number,
+    y: number,
+    size: number,
+    resultSize?: number
+) {
+	return cutImage(img, x, y, size, size, resultSize, resultSize);
 }
 
 export function scaleAndCutImage(
@@ -30,22 +37,27 @@ export function scaleAndCutImage(
 	y: number,
 	recWidth: number,
 	recHeight: number,
+  resultWidth?: number,
+  resultHeight?: number,
+  scale = 1
 ) {
-	const converter = new ScreenConverter(img.height, img.naturalHeight, {
-		x: (img.width - recWidth) / 2,
-		y: (img.height - recHeight) / 2,
+	const converter = new ScreenConverter(img.height * scale, img.naturalHeight, {
+		x: (img.width * scale - (recWidth)) / 2,
+		y: (img.height * scale - (recHeight)) / 2,
 	});
-	const leftUp: IPoint = converter.screenPointToReal({ x: x, y: y });
+	const leftUp: IPoint = converter.screenPointToReal({ x: x * scale, y: y * scale });
 	const width = converter.screenSizeToReal(recWidth);
 	const height = converter.screenSizeToReal(recHeight);
-	return cutImage(img, leftUp.x, leftUp.y, width, height);
+	return cutImage(img, leftUp.x, leftUp.y, width, height, resultWidth, resultHeight);
 }
 
 export function scaleAndCutSquareImg(
 	img: HTMLImageElement,
 	x: number,
 	y: number,
-	size: number
+	size: number,
+  resultSize?: number,
+  scale = 1,
 ) {
-	return scaleAndCutImage(img, x, y, size, size);
+	return scaleAndCutImage(img, x, y, size, size, resultSize, resultSize, scale);
 }
