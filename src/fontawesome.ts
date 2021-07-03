@@ -5,6 +5,7 @@ import {
 	faCommentAlt,
 	faSignOutAlt,
 	faCheck,
+	faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faSignInAlt, faUserPlus, faCommentAlt, faSignOutAlt, faCheck);
+library.add(faSignInAlt, faUserPlus, faCommentAlt, faSignOutAlt, faCheck, faSearch);

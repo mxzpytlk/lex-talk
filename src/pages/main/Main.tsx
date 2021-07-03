@@ -6,6 +6,7 @@ import { Context } from '../..';
 import { useContext, useEffect } from 'react';
 import { RouterPath } from '../../core/enums/router-path';
 import { observer } from 'mobx-react-lite';
+import { AppRouter } from '../../route/AppRouter';
 
 
 function Main() {
@@ -31,7 +32,11 @@ function Main() {
     );
   }
 
-	return (<h1>SUCCESS</h1>);
+	return (
+    <div className='main'>
+      <AppRouter/>
+    </div>
+  );
 }
 
 export default observer(Main);

@@ -22,5 +22,8 @@
     "about": "About",
     "picture": "Profile Picture",
     "no_file": "No file choosen"
+  },
+  "chat": {
+    "search": "Search Contacts"
   }
 }

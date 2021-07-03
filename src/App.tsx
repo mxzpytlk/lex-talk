@@ -6,6 +6,7 @@ import Main from './pages/main/Main';
 import { Context } from './';
 import { LocalStorageKey } from './core/enums/local-storage-key';
 import { observer } from 'mobx-react-lite';
+import { BrowserRouter } from 'react-router-dom';
 
 
 function App() {
@@ -35,9 +36,9 @@ function App() {
 
 	if (store.isAuth) {
 		return (
-			<div>
+			<BrowserRouter>
 				<Main />
-			</div>
+			</BrowserRouter>
 		);
 	}
 

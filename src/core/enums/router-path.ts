@@ -4,4 +4,6 @@ export enum RouterPath {
   LOGIN = '/login',
   REGISTER = '/register',
   LOGOUT = '/logout',
+  CHAT = '/chat',
+  SETTINGS = '/settings',
 }

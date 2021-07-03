@@ -2,9 +2,7 @@
 @import '../../style/variables/color';
 
 .main {
-  margin-top: $navbar-height;
-  height: calc(100vh - #{$navbar-height});
-  max-height: calc(100vh - #{$navbar-height});
+  height: 100vh;
   box-sizing: border-box;
   background-color: $background;
 }

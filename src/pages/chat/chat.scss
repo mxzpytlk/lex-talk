@@ -1,0 +1,75 @@
+@import '../../style/variables/color';
+
+.chat {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.contacts {
+  width: 35%;
+  height: 100%;
+  border-right: 1px solid gray;
+  overflow-y: auto;
+  padding-right: 1px;
+  box-sizing: border-box;
+
+  &__search {
+    width: 100%;
+    height: 65px;
+    padding: 24px 16px 12px;
+    box-sizing: border-box;
+    background-color: $primary;
+    display: flex;
+    align-items: center;
+
+    &_input {
+      box-sizing: border-box;
+      width: 100%;
+      border: none;
+      outline: none;
+      background-color: inherit;
+      border-bottom: 1px solid white;
+      font-size: 1.05rem;
+      color: white;
+
+      &::placeholder {
+        color: white;
+      }
+    }
+
+    &_icon {
+      color: white;
+      padding-left: 12px;
+    }
+  }
+
+  &__toggler {
+    display: flex;
+    flex-direction: column;
+    padding: 1px 6px;
+    position: relative;
+    bottom: -2px;
+    margin-left: 4px;
+    cursor: pointer;
+
+    &_line {
+      width: 28px;
+      height: 2px;
+      background-color: white;
+      margin-bottom: 6px;
+
+      &-top {
+        transform: rotate(45deg) translateY(6px);
+      }
+
+      &-center {
+        display: none;
+      }
+
+      &-bottom {
+        transform: rotate(-45deg) translateY(-6px);
+      }
+    }
+  }
+}
