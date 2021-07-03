@@ -1,7 +1,7 @@
 mutation ($email: String!, $password: String!) {
   register(email: $email password: $password) {
     user {
-      id
+      id isActivated
     }
     jwt {
       accesToken refreshToken

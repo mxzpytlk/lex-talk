@@ -4,5 +4,5 @@ export interface IUser {
   isActivated: boolean;
   name?: string;
   about?: string;
-  avatarUrl?: string;
+  avatar?: string;
 }

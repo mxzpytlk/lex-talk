@@ -8,6 +8,8 @@ import { loader } from 'graphql.macro';
 import { useMutation } from 'react-apollo';
 import { Context } from '../../';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { observer } from 'mobx-react-lite';
+import Navbar from '../../components/navbar/Navbar';
 
 interface IFormData {
   username: string;
@@ -16,7 +18,7 @@ interface IFormData {
 
 const UPDATE_USER = loader('../../graphql/mutations/update-user.graphql');
 
-export function Details() {
+function Details() {
   const { store } = useContext(Context);
   const [updateUser] = useMutation(UPDATE_USER);
 
@@ -41,7 +43,7 @@ export function Details() {
 
   const validate = (data: IFormData) => {
     const user = store.user;
-    if (user?.name && user?.about && user?.avatarUrl) {
+    if (user?.name && user?.about && user?.avatar) {
       if (!(data.username || data.about || blob)) {
         return { error: true };
       }
@@ -54,11 +56,13 @@ export function Details() {
     if (blob) {
       try {
         const { username: name, about } = data;
-        await updateUser({ variables: {
+        const res = await updateUser({ variables: {
           name,
           about,
           avatar: new File([blob], file?.name as string) 
         }});
+        const user = res.data.updateUser;
+        store.setUser(user);
       } catch (e) {
         console.error(e);
       }
@@ -68,6 +72,7 @@ export function Details() {
 
 	return (
 		<div className="details">
+      <Navbar />
 			<h1 className="details__h1">{t('details.title')}</h1>
 			<hr />
 			<Formik
@@ -133,3 +138,5 @@ export function Details() {
 		</div>
 	);
 }
+
+export default observer(Details);

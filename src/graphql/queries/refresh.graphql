@@ -1,7 +1,7 @@
-mutation {
+query {
   refresh {
     user {
-      id isActivated
+      id isActivated name about avatar
     }
     jwt {
       accesToken

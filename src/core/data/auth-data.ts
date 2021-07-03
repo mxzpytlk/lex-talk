@@ -20,6 +20,6 @@ export interface IRegisterMutation {
   register: IAuthSuccess;
 }
 
-export interface IRefrshMutation {
+export interface IRefreshQuery {
   refresh: IAuthSuccess;
 }

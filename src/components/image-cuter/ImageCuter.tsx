@@ -60,11 +60,13 @@ export function ImageCuter(props: ImageCuterProps) {
 			return dif;
 		}
 		const directCoef = 5;
-    set(clientCoord);
+		set(clientCoord);
 		return dif + (clientCoord > posCoord ? directCoef : -directCoef);
 	};
 
 	const onMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+		e.preventDefault();
+		e.stopPropagation();
 		const { clientX, clientY } = e;
 		const widthLimit = (width - gridSize / scale) / 2;
 		const heightLimit = (height - gridSize / scale) / 2;
@@ -88,6 +90,10 @@ export function ImageCuter(props: ImageCuterProps) {
 		const resultScale = scale * scaleCoef;
 		if (resultScale >= 1 && resultScale <= 3) {
 			setScale(resultScale);
+			if (scaleCoef < 1) {
+				setDx(dx * scaleCoef);
+				setDy(dy * scaleCoef);
+			}
 		}
 	};
 
@@ -124,21 +130,23 @@ export function ImageCuter(props: ImageCuterProps) {
 				<div className="cut__cutter_center">
 					<div className="cut__cutter_side"></div>
 					<table className="cut__cutter_grid" style={gridStyle}>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+						<tbody>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
 					</table>
 					<div className="cut__cutter_side"></div>
 				</div>

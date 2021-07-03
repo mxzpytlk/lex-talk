@@ -1,7 +1,7 @@
 import './auth-form.scss';
 import '../../style/input.scss';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useRouteMatch } from 'react-router';
+import { useHistory, useLocation, useRouteMatch } from 'react-router';
 import { RouterPath } from '../../core/enums/router-path';
 import React, { useContext, useEffect, useState } from 'react';
 import { Formik, Field, Form } from 'formik';
@@ -14,7 +14,7 @@ export function AuthForm() {
   const history = useHistory();
 
 	const { t } = useTranslation();
-	const match = useRouteMatch();
+  const location = useLocation();
 
   const { store } = useContext(Context);
 
@@ -41,7 +41,8 @@ export function AuthForm() {
     history.push(RouterPath.DEFAULT);
   }
 
-	const isRegisterPage = () => match.path === '/register';
+	const isRegisterPage = () => location.pathname === '/register';
+  
 
 	const validate = (values: IAuth) => {
     const { email, password, repeatPass } = values;

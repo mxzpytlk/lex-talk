@@ -1,11 +1,11 @@
 import { loader } from 'graphql.macro';
 import { makeAutoObservable } from 'mobx';
-import { IAuthSuccess, IRefrshMutation } from '../core/data/auth-data';
+import { IAuthSuccess, IRefreshQuery } from '../core/data/auth-data';
 import { IUser } from '../core/data/user-data';
 import { AuthService } from '../service/auth.service';
 import { client } from '../graphql/';
 
-const REFRESH_MUTATION = loader('../graphql/mutations/refresh.graphql');
+const REFRESH_QUERY = loader('../graphql/queries/refresh.graphql');
 
 export class Store {
   public user!: IUser | null;
@@ -25,14 +25,18 @@ export class Store {
 
   public auth(auth: IAuthSuccess) {
     AuthService.auth(auth);
-    this.setIsAuth(true);
+    this.setIsAuth(auth?.user?.isActivated);
     this.setUser(auth?.user);
+  }
+
+  public get isDetails(): boolean {
+    return !!(this.user?.about && this.user.avatar && this.user.name);
   }
 
   public async checkAuth(): Promise<void> {
     try {
-      const res = await client.mutate<IRefrshMutation>({
-        mutation: REFRESH_MUTATION
+      const res = await client.query<IRefreshQuery>({
+        query: REFRESH_QUERY
       });
       if (res.data?.refresh) {
         this.auth(res?.data?.refresh);

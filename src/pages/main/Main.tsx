@@ -1,13 +1,14 @@
 import './main.scss';
-import { Details } from '../details/Details';
+import Details from '../details/Details';
 import { useLogout } from '../../hooks/use-logout';
 import { useLocation } from 'react-router';
 import { Context } from '../..';
 import { useContext, useEffect } from 'react';
 import { RouterPath } from '../../core/enums/router-path';
+import { observer } from 'mobx-react-lite';
 
 
-export function Main() {
+function Main() {
   const logout = useLogout();
 	const location = useLocation();
 	const { store } = useContext(Context);
@@ -22,9 +23,15 @@ export function Main() {
 		}
 	}, [location.pathname]);
 
-	return (
-		<div className='main'>
-      <Details />
-		</div>
-	);
+  if (!store.isDetails) {
+    return (
+      <div className='main'>
+        <Details />
+      </div>
+    );
+  }
+
+	return (<h1>SUCCESS</h1>);
 }
+
+export default observer(Main);
