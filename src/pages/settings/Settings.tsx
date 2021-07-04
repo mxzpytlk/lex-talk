@@ -11,13 +11,16 @@ function Settings() {
 	const { store } = useContext(Context);
   const [aboutValue, setAboutValue] = useState(store.user?.about as string);
   const [testToggler, setTestToggler] = useState(false);
+  const pictureStyle = {
+    backgroundImage: `url(http://localhost:5000/api/file/${store.user?.avatar})`,
+  };
 
   return (
     <div className='settings'>
       <Navbar />
       <h1 className='settings__title'>{t('common.settings')}</h1>
       <hr/>
-      <div className='settings__img_container'>
+      <div className='settings__img_container' style={pictureStyle}>
         <div className='settings__img_hover'>
           {t('settings.change_image')}
         </div>
