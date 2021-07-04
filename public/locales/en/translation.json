@@ -5,7 +5,8 @@
     "username": "Username",
     "select": "Select",
     "submit": "Submit",
-    "settings": "Settings"
+    "settings": "Settings",
+    "update": "Update"
   },
   "auth": {
     "log_in": "Log In",
@@ -26,5 +27,10 @@
   },
   "chat": {
     "search": "Search Contacts"
+  },
+  "settings": {
+    "change_image": "Change Image",
+    "dark": "Dark Mode",
+    "language": "Language"
   }
 }

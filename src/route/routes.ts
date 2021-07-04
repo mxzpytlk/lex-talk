@@ -1,6 +1,6 @@
 import { RouterPath } from '../core/enums/router-path';
 import { Chat } from '../pages/chat/Chat';
-import { Settings } from '../pages/settings/Settings';
+import Settings from '../pages/settings/Settings';
 
 export const routes = [
   {
