@@ -4,10 +4,11 @@ import { createUploadLink } from 'apollo-upload-client';
 import { onError } from 'apollo-link-error';
 import { loader } from 'graphql.macro';
 
+export const SERVER_URL = 'http://localhost:5000'
 const REFRESH_QUERY = loader('../graphql/queries/refresh.graphql');
 
 const httpLink: any = createUploadLink({ 
-  uri: 'http://localhost:5000/graphql',
+  uri: `${SERVER_URL}/graphql`,
   credentials: 'include'
 });
 

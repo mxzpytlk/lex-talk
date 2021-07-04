@@ -5,6 +5,7 @@ import Navbar from '../../components/navbar/Navbar';
 import './settings.scss';
 import { observer } from 'mobx-react-lite';
 import Switch from 'react-switch';
+import { SERVER_URL } from '../../graphql';
 
 function Settings() {
   const [t] = useTranslation();
@@ -12,7 +13,7 @@ function Settings() {
   const [aboutValue, setAboutValue] = useState(store.user?.about as string);
   const [testToggler, setTestToggler] = useState(false);
   const pictureStyle = {
-    backgroundImage: `url(http://localhost:5000/api/file/${store.user?.avatar})`,
+    backgroundImage: `url(${SERVER_URL}/api/file/${store.user?.avatar})`,
   };
 
   return (
