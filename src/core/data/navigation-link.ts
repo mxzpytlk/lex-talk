@@ -26,8 +26,14 @@ export const links: INavigationLink[] = [
   {
     needAuth: true,
     text: 'common.chat',
-    path: '',
+    path: RouterPath.CHAT,
     icon: ['fas', 'comment-alt'],
+  },
+  {
+    needAuth: true,
+    text: 'common.settings',
+    path: RouterPath.SETTINGS,
+    icon: ['fas', 'cog'],
   },
   {
     needAuth: true,

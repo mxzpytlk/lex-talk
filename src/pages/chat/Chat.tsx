@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './chat.scss';
 import classNames from 'classnames';
+import { Menu } from '../../components/menu/Menu';
 
 export function Chat() {
   const [t] = useTranslation();
@@ -10,6 +11,7 @@ export function Chat() {
 
   return (
     <div className='chat'>
+      {showMenu && <Menu onClick={() => setShowMenu(false)}/>}
       <div className='contacts'>
         <div className='contacts__search'>
           <input

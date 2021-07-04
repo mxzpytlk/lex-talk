@@ -6,7 +6,7 @@ export function AppRouter() {
 	return (
 		<Switch>
 			{routes.map(({ path, Component }) => (
-				<Route path={path} component={Component} exact />
+				<Route path={path} component={Component} exact key={path} />
 			))}
 			<Redirect to={RouterPath.CHAT} />
 		</Switch>

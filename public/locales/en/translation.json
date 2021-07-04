@@ -4,7 +4,8 @@
     "chat": "Chat",
     "username": "Username",
     "select": "Select",
-    "submit": "Submit"
+    "submit": "Submit",
+    "settings": "Settings"
   },
   "auth": {
     "log_in": "Log In",
