@@ -3,13 +3,12 @@ import { Formik, Field, Form } from 'formik';
 import './details.scss';
 import '../../style/input.scss';
 import React, { useContext, useState } from 'react';
-import { ImageCuter } from '../../components/image-cuter/ImageCuter';
 import { loader } from 'graphql.macro';
 import { useMutation } from 'react-apollo';
 import { Context } from '../../';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import Navbar from '../../components/navbar/Navbar';
+import ImageChooser from '../../components/image-chooser/ImageChooser';
 
 interface IFormData {
   username: string;
@@ -23,23 +22,15 @@ function Details() {
   const [updateUser] = useMutation(UPDATE_USER);
 
 	const { t } = useTranslation();
-	const [selectImgBtnPresses, setSelectImgBtnPressed] = useState(false);
 
 	const [file, setFile] = useState<File | null | undefined>(null);
 
 	const [blob, setBlob] = useState<Blob>();
 
-	const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e?.target?.files?.item(0)) {
-      setBlob(undefined);
-      setFile(e.target.files?.item(0));
-    }
-	};
-
-	const cut = (blob: Blob) => {
-		setSelectImgBtnPressed(false);
-		setBlob(blob);
-	};
+  const onImgChange = (file: File | null | undefined, blob: Blob | undefined) => {
+    setFile(file);
+    setBlob(blob);
+  }
 
   const validate = (data: IFormData) => {
     const user = store.user;
@@ -55,11 +46,14 @@ function Details() {
   const submit = async (data: IFormData) => {
     if (blob) {
       try {
+        const fileName = `${file?.name.split('.')[0]}.jpeg`;
         const { username: name, about } = data;
         const res = await updateUser({ variables: {
           name,
           about,
-          avatar: new File([blob], file?.name as string) 
+          avatar: new File([blob], fileName, {
+            type: 'image/jpeg'
+          })
         }});
         const user = res.data.updateUser;
         store.setUser(user);
@@ -92,42 +86,7 @@ function Details() {
             className="lt__input"
             name="about"
           />
-					<div className="details__picture_container">
-						<div>
-							<button className="details__file_btn">
-								<label className="details__file_label">
-                  {t('details.picture')}
-                </label>
-								<input
-									type="file"
-									className="details__file"
-									name="picture"
-									onChange={changeFile}
-									accept=".jpg, .jpeg, .png"
-								/>
-							</button>
-							<span className="details__file_name">
-                {file?.name || t('details.no_file')}
-              </span>
-						</div>
-              {!!file && (
-              !!blob ? 
-              <FontAwesomeIcon
-                icon={['fas', 'check']}
-                className="details__file_success"
-              /> :
-              <button
-                className="details__file_btn"
-                onClick={() => setSelectImgBtnPressed(true)}
-              >
-                {t('common.select')}
-              </button>)}
-					</div>
-					{!!file && <ImageCuter
-            file={file}
-            cutFn={cut}
-            shouldCut={selectImgBtnPresses}
-          />}
+          <ImageChooser onImgChange={onImgChange}/>
           <Field
             type="submit"
             value={t('common.submit') as string}
