@@ -39,7 +39,7 @@ export default function ImageChooser(props: ImageChooserProps) {
 						className="image-chooser__file"
 						name="picture"
 						onChange={changeFile}
-						accept=".jpg, .jpeg, .png"
+						accept=".jpeg"
 					/>
 				</button>
 				<span className="image-chooser__file_name">{file?.name || t('details.no_file')}</span>

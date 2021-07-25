@@ -1,4 +1,6 @@
 import ScreenConverter, { IPoint } from './geometry.utils';
+import { canvastoFile } from 'image-conversion';
+import { SERVER_URL } from '../../graphql';
 
 export function cutImage(
 	img: HTMLImageElement,
@@ -14,11 +16,7 @@ export function cutImage(
 	canvas.height = resultHeight || height;
 	const ctx = canvas.getContext('2d');
 	ctx?.drawImage(img, x, y, width, height, 0, 0, canvas.width, canvas.height);
-  return new Promise((resolve) => {
-    canvas.toBlob((blob) => {
-      resolve(blob as Blob);
-    }, 'image/jpeg');
-  });
+  return canvastoFile(canvas);
 }
 
 export function cutSquareImage(
@@ -60,4 +58,8 @@ export function scaleAndCutSquareImg(
   scale = 1,
 ) {
 	return scaleAndCutImage(img, x, y, size, size, resultSize, resultSize, scale);
+}
+
+export function getImgUrl(imgId: string) {
+  return `${SERVER_URL}/api/file/${imgId}`;
 }
