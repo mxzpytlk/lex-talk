@@ -5,4 +5,9 @@
   height: 100vh;
   box-sizing: border-box;
   background-color: $background;
+
+  &-dark {
+    background-color: $bg-dark;
+    color: white;
+  }
 }

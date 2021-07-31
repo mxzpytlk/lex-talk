@@ -14,7 +14,7 @@ function Navbar() {
 
 
 	return (
-		<nav className="nav">
+		<nav className={store.configStore.darkClass('nav')}>
 			<div className="nav__app">
 				<img src={logo} alt="Logo" className="nav__app_logo" />
 				<span className="nav__app_name">lextalk</span>

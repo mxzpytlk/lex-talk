@@ -1,8 +1,14 @@
+@import '../../style/variables/color';
+
 .menu {
   width: 30vw;
   height: 100vh;
   background-color: white;
   z-index: 30;
+
+  &-dark {
+    background-color: $light-dark;
+  }
 
   &__hide {
     transform: translateX(-30vw);

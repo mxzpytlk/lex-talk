@@ -35,7 +35,7 @@ function App() {
 
 	if (isLoading) {
 		return (
-			<div className="loading">
+			<div className={store.configStore.darkClass('loading')}>
 				<ReactLoading
 					type={'spinningBubbles'}
 					color={'blue'}
@@ -55,7 +55,7 @@ function App() {
 	}
 
 	return (
-		<div className="App">
+		<div className={store.configStore.darkClass('app')}>
 			<Auth />
 		</div>
 	);

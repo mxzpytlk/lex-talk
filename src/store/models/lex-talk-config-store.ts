@@ -60,4 +60,8 @@ export class LexTalkConfigStore implements ILexTalkConfig {
     this.darkMode = darkMode === null ? this.darkMode : darkMode;
     setInLocalStorage(LocalStorageKey.DARK ,this.darkMode);
   }
+
+  public darkClass(className: string): string {
+    return this.darkMode ? `${className} ${className}-dark` : className;
+  }
 }

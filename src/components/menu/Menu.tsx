@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './menu.scss';
 import classnames from 'classnames';
 import logo from '../../assets/logo.svg';
 import { links } from '../../core/data/navigation-link';
 import { NavigationLink } from '../navigation-link/NavigationLink';
+import { Context } from '../../';
 
 interface IMenuProps {
 	onClick: () => void;
@@ -11,6 +12,8 @@ interface IMenuProps {
 
 export function Menu(props: IMenuProps) {
 	const [hideMenu, setHideMenu] = useState(true);
+  const { store } = useContext(Context);
+
 	useEffect(() => {
 		setHideMenu(false);
 	}, []);
@@ -23,9 +26,9 @@ export function Menu(props: IMenuProps) {
 
 
 	return (
-		<div className="menu__background" onClick={close}>
+		<div className='menu__background' onClick={close}>
 			<div
-				className={classnames('menu', hideMenu && 'menu__hide')}
+				className={classnames(store.configStore.darkClass('menu'), hideMenu && 'menu__hide')}
 				onClick={(e) => e.stopPropagation()}
 			>
 				<img

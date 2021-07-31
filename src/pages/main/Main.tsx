@@ -33,7 +33,7 @@ function Main() {
   }
 
 	return (
-    <div className='main'>
+    <div className={store.configStore.darkClass('main')}>
       <AppRouter/>
     </div>
   );

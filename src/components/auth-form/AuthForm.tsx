@@ -96,7 +96,7 @@ export function AuthForm() {
 
 
 	return (
-		<div className="auth__form">
+		<div className={store.configStore.darkClass('auth__form')}>
 			<Formik
 				initialValues={{ email: '', password: '' }}
 				validate={validate}
