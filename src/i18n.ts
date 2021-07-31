@@ -4,8 +4,9 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 import { LocalStorageKey } from './core/enums/local-storage-key';
 import { Language } from './core/enums/languages';
+import { getFromLocalStorage } from './core/utils/local-storage.utils';
 
-export const DEFAULT_LANG: Language = (localStorage.getItem(LocalStorageKey.LANG) as Language) || Language.EN;
+export const DEFAULT_LANG: Language = getFromLocalStorage(LocalStorageKey.LANG) || Language.EN;
 
 (i18n as any)
   .use(Backend)

@@ -10,7 +10,6 @@ import { getImgUrl } from '../../core/utils/image.utils';
 import { loader } from 'graphql.macro';
 import { useMutation } from 'react-apollo';
 import { Language } from '../../core/enums/languages';
-import { LocalStorageKey } from '../../core/enums/local-storage-key';
 import { useChangeLang } from '../../hooks/use-change-lang';
 
 const UPDATE_USER = loader('../../graphql/mutations/update-user.graphql');

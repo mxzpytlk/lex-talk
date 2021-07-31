@@ -8,6 +8,7 @@ import { LocalStorageKey } from './core/enums/local-storage-key';
 import { observer } from 'mobx-react-lite';
 import { BrowserRouter } from 'react-router-dom';
 import { useChangeLang } from './hooks/use-change-lang';
+import { getFromLocalStorage } from './core/utils/local-storage.utils';
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
   const changeLang = useChangeLang();
 
 	useEffect(() => {
-		if (localStorage.getItem(LocalStorageKey.TOKEN)) {
+		if (getFromLocalStorage(LocalStorageKey.TOKEN)) {
 			store.userStore.checkAuth()
         .then(() => store.configStore.loadConfig())
         .finally(() => {

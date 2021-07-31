@@ -5,6 +5,7 @@ import { Language } from '../../core/enums/languages';
 import { ILexTalkConfig } from '../../core/data/lex-talk-config';
 import { DEFAULT_LANG } from '../../i18n';
 import { LocalStorageKey } from '../../core/enums/local-storage-key';
+import { setInLocalStorage } from '../../core/utils/local-storage.utils';
 
 const UPDATE_CONFIG_MUTATION = loader('../../graphql/mutations/update-config.graphql');
 const CONFIG_QUERY = loader('../../graphql/queries/config.graphql');
@@ -26,7 +27,7 @@ export class LexTalkConfigStore implements ILexTalkConfig {
   }
 
   public setLang(lang: Language): void {
-    localStorage.setItem(LocalStorageKey.LANG, lang);
+    setInLocalStorage(LocalStorageKey.LANG, lang);
     this.lang = lang;
   }
 
@@ -46,11 +47,14 @@ export class LexTalkConfigStore implements ILexTalkConfig {
     } catch(e) {}
   }
 
-  public async loadConfig() {
+  public async loadConfig(): Promise<void> {
     const config = await client.query<IConfigQuery>({
       query: CONFIG_QUERY
     });
-    const { lang, darkMode } = config.data.getConfig;
+    if (!config.data) {
+      return;
+    }
+    const { lang, darkMode } = config.data?.getConfig;
     this.lang = lang || this.lang;
     this.darkMode = darkMode === null ? this.darkMode : darkMode;
   }
