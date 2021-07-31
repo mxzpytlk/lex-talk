@@ -33,7 +33,7 @@ export class UserStore {
     return !!(this.user?.about && this.user.avatar && this.user.name);
   }
 
-  public async checkAuth(): Promise<void> {
+  public async checkAuth(): Promise<boolean> {
     try {
       const res = await client.query<IRefreshQuery>({
         query: REFRESH_QUERY
@@ -41,6 +41,8 @@ export class UserStore {
       if (res.data?.refresh) {
         this.auth(res?.data?.refresh);
       }
-    } catch (e) { } finally { }
+    } catch (e) { } finally { 
+      return !!this.user;
+    }
   }
 }

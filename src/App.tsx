@@ -19,7 +19,9 @@ function App() {
 	useEffect(() => {
 		if (getFromLocalStorage(LocalStorageKey.TOKEN)) {
 			store.userStore.checkAuth()
-        .then(() => store.configStore.loadConfig())
+        .then((isAuth) => {
+          isAuth && store.configStore.loadConfig()
+        })
         .finally(() => {
           if (store.configStore.lang) {
             changeLang(store.configStore.lang);

@@ -11,6 +11,7 @@ import { loader } from 'graphql.macro';
 import { useMutation } from 'react-apollo';
 import { Language } from '../../core/enums/languages';
 import { useChangeLang } from '../../hooks/use-change-lang';
+import classnames from 'classnames';
 
 const UPDATE_USER = loader('../../graphql/mutations/update-user.graphql');
 
@@ -60,6 +61,8 @@ function Settings() {
   const changeDarkMode = async () => 
     store.configStore.updateConfig({ darkMode: !store.configStore.darkMode });
 
+  const checkLang = (lang: Language) => lang === store.configStore.lang;
+
   return (
     <div className='settings'>
       <Navbar />
@@ -102,8 +105,24 @@ function Settings() {
       <div className='settings__switch'>
         <span>{t('settings.language')}</span>
         <div>
-          <span className='settings__switch_language' onClick={() => changeLang(Language.RU)}>Русский</span>
-          <span className='settings__switch_language' onClick={() => changeLang(Language.EN)}>English</span>
+          <span
+            className={classnames(
+              'settings__switch_language',
+              checkLang(Language.RU) && 'settings__switch_cur')
+            }
+            onClick={() => changeLang(Language.RU)}
+          >
+            Русский
+          </span>
+          <span
+            className={classnames(
+              'settings__switch_language',
+              checkLang(Language.EN) && 'settings__switch_cur')
+            }
+            onClick={() => changeLang(Language.EN)}
+          >
+            English
+          </span>
         </div>
       </div>
     </div>
