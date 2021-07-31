@@ -15,13 +15,12 @@ import { useChangeLang } from '../../hooks/use-change-lang';
 const UPDATE_USER = loader('../../graphql/mutations/update-user.graphql');
 
 function Settings() {
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   const changeLangHook = useChangeLang();
 	const { store } = useContext(Context);
   const [updateUser] = useMutation(UPDATE_USER);
 
   const [aboutValue, setAboutValue] = useState(store.userStore.user?.about as string);
-  const [testToggler, setTestToggler] = useState(false);
   const [imgChooserOpen, setImgChooserOpen] = useState(false);
   const [imgSrc, setImgSrc] = useState(getImgUrl(store.userStore?.user?.avatar as string));
   
@@ -58,6 +57,9 @@ function Settings() {
     await store.configStore.updateConfig({lang});
   };
 
+  const changeDarkMode = async () => 
+    store.configStore.updateConfig({ darkMode: !store.configStore.darkMode });
+
   return (
     <div className='settings'>
       <Navbar />
@@ -87,8 +89,8 @@ function Settings() {
       <div className='settings__switch'>
         <span>{t('settings.dark')}</span>
         <Switch
-          checked={testToggler}
-          onChange={() => setTestToggler(!testToggler)}
+          checked={!!store.configStore.darkMode}
+          onChange={() => changeDarkMode()}
           onColor='#7905ff'
           onHandleColor='#222222'
           handleDiameter={18}
