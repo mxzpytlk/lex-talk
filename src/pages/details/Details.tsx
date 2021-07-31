@@ -33,7 +33,7 @@ function Details() {
   }
 
   const validate = (data: IFormData) => {
-    const user = store.user;
+    const user = store.userStore.user;
     if (user?.name && user?.about && user?.avatar) {
       if (!(data.username || data.about || blob)) {
         return { error: true };
@@ -56,7 +56,7 @@ function Details() {
           })
         }});
         const user = res.data.updateUser;
-        store.setUser(user);
+        store.userStore.setUser(user);
       } catch (e) {
         console.error(e);
       }

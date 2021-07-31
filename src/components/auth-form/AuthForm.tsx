@@ -37,7 +37,7 @@ export function AuthForm() {
   [loginError]);
 
   if (loginData?.login) {
-    store.auth(loginData.login);
+    store.userStore.auth(loginData.login);
     history.push(RouterPath.DEFAULT);
   }
 
@@ -90,7 +90,7 @@ export function AuthForm() {
     }
 
     if (successAuth) {
-      store.auth(successAuth);
+      store.userStore.auth(successAuth);
     }
 	};
 

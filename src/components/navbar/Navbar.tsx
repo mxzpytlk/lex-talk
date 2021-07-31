@@ -10,7 +10,7 @@ function Navbar() {
 
 	const { store } = useContext(Context);
 
-  const isActive = (link: INavigationLink) => store.isAuth === link.needAuth;
+  const isActive = (link: INavigationLink) => store.userStore.isAuth === link.needAuth;
 
 
 	return (

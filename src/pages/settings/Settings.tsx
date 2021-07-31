@@ -19,10 +19,10 @@ function Settings() {
 	const { store } = useContext(Context);
   const [updateUser] = useMutation(UPDATE_USER);
 
-  const [aboutValue, setAboutValue] = useState(store.user?.about as string);
+  const [aboutValue, setAboutValue] = useState(store.userStore.user?.about as string);
   const [testToggler, setTestToggler] = useState(false);
   const [imgChooserOpen, setImgChooserOpen] = useState(false);
-  const [imgSrc, setImgSrc] = useState(getImgUrl(store?.user?.avatar as string));
+  const [imgSrc, setImgSrc] = useState(getImgUrl(store.userStore?.user?.avatar as string));
   
   const pictureStyle = {
     backgroundImage: `url(${imgSrc})`,
@@ -40,7 +40,7 @@ function Settings() {
         })
       }});
       const user = res.data.updateUser;
-      store.setUser(user);
+      store.userStore.setUser(user);
     }
   }
 
@@ -49,7 +49,7 @@ function Settings() {
       about: aboutValue
     }});
     const user = res.data.updateUser;
-    store.setUser(user);
+    store.userStore.setUser(user);
   }
 
   const changeLang = (lang: Language) => {
@@ -79,7 +79,7 @@ function Settings() {
           onChange={(e) => setAboutValue(e.target.value)}
         />
         {
-          aboutValue !== store.user?.about &&
+          aboutValue !== store.userStore.user?.about &&
           <button className='lt__submit settings__about_update' onClick={updateAbout}>{t('common.update')}</button>
         }
       </div>

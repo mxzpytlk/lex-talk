@@ -18,13 +18,13 @@ function Main() {
 		const { pathname } = location;
 		if (pathname === RouterPath.LOGOUT) {
 			logout().then(() => {
-				store.setIsAuth(false);
-        store.setUser(null);
+				store.userStore.setIsAuth(false);
+        store.userStore.setUser(null);
 			});
 		}
 	}, [location.pathname]);
 
-  if (!store.isDetails) {
+  if (!store.userStore.isDetails) {
     return (
       <div className='main'>
         <Details />

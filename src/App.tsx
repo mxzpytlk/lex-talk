@@ -15,7 +15,7 @@ function App() {
 
 	useEffect(() => {
 		if (localStorage.getItem(LocalStorageKey.TOKEN)) {
-			store.checkAuth().then(() => setIsloading(false));
+			store.userStore.checkAuth().then(() => setIsloading(false));
 		} else {
 			setIsloading(false);
 		}
@@ -34,7 +34,7 @@ function App() {
 		);
 	}
 
-	if (store.isAuth) {
+	if (store.userStore.isAuth) {
 		return (
 			<BrowserRouter>
 				<Main />
