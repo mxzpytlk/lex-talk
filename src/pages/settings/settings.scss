@@ -1,4 +1,5 @@
 @import '../../style/variables/size';
+@import '../../style/variables/color';
 
 .settings {
   padding-top: 4.5rem;
@@ -73,6 +74,10 @@
           cursor: default;
         }
       }
+    }
+
+    &_cur {
+      color: $primary;
     }
   }
 }

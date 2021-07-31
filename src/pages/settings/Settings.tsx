@@ -9,11 +9,13 @@ import ImageChooser from '../../components/image-chooser/ImageChooser';
 import { getImgUrl } from '../../core/utils/image.utils';
 import { loader } from 'graphql.macro';
 import { useMutation } from 'react-apollo';
+import { Language } from '../../core/enums/languages';
+import { LocalStorageKey } from '../../core/enums/local-storage-key';
 
 const UPDATE_USER = loader('../../graphql/mutations/update-user.graphql');
 
 function Settings() {
-  const [t] = useTranslation();
+  const [t, i18n] = useTranslation();
 	const { store } = useContext(Context);
   const [updateUser] = useMutation(UPDATE_USER);
 
@@ -49,6 +51,11 @@ function Settings() {
     const user = res.data.updateUser;
     store.setUser(user);
   }
+
+  const changeLang = (lang: Language) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem(LocalStorageKey.LANG, lang);
+  };
 
   return (
     <div className='settings'>
@@ -92,8 +99,8 @@ function Settings() {
       <div className='settings__switch'>
         <span>{t('settings.language')}</span>
         <div>
-          <span className='settings__switch_language'>Русский</span>
-          <span className='settings__switch_language'>English</span>
+          <span className='settings__switch_language' onClick={() => changeLang(Language.RU)}>Русский</span>
+          <span className='settings__switch_language' onClick={() => changeLang(Language.EN)}>English</span>
         </div>
       </div>
     </div>
