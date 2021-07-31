@@ -65,7 +65,7 @@ function Details() {
 
 
 	return (
-		<div className="details">
+		<div className='details'>
       <Navbar />
 			<h1 className="details__h1">{t('details.title')}</h1>
 			<hr />

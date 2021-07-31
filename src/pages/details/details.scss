@@ -10,6 +10,11 @@
   max-width: 1320px;
   box-sizing: border-box;
 
+  &-dark {
+    background-color: $bg-dark;
+    color: white;
+  }
+
   &__h1 {
     margin-top: 0;
     font-weight: 500;

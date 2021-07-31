@@ -26,7 +26,7 @@ function Main() {
 
   if (!store.userStore.isDetails) {
     return (
-      <div className='main'>
+      <div className={store.configStore.darkClass('main')}>
         <Details />
       </div>
     );

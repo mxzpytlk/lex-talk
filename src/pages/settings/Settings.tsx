@@ -107,7 +107,7 @@ function Settings() {
         <div>
           <span
             className={classnames(
-              'settings__switch_language',
+              store.configStore.darkClass('settings__switch_language'),
               checkLang(Language.RU) && 'settings__switch_cur')
             }
             onClick={() => changeLang(Language.RU)}

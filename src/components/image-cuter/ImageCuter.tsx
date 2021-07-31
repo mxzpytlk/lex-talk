@@ -106,7 +106,7 @@ export function ImageCuter(props: ImageCuterProps) {
 
 	return (
 		<div className="cut__container">
-			{(posX || posY) && (
+			{!!(posX || posY) && (
 				<div className="cut__move" onMouseUp={onMouseUp} onMouseMove={onMove}></div>
 			)}
 			<img

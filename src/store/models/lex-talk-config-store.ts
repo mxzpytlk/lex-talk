@@ -52,7 +52,7 @@ export class LexTalkConfigStore implements ILexTalkConfig {
     const config = await client.query<IConfigQuery>({
       query: CONFIG_QUERY
     });
-    if (!config.data) {
+    if (!config.data?.getConfig) {
       return;
     }
     const { lang, darkMode } = config.data?.getConfig;

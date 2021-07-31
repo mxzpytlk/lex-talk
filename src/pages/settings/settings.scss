@@ -66,6 +66,14 @@
       font-size: 1.2rem;
       cursor: pointer;
 
+      &-dark {
+        &:not(:last-child) {
+          &::after {
+            color: white !important;
+          }
+        }
+      }
+
       &:not(:last-child) {
         &::after {
           content: '/';
