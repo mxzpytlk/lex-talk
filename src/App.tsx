@@ -7,15 +7,24 @@ import { Context } from './';
 import { LocalStorageKey } from './core/enums/local-storage-key';
 import { observer } from 'mobx-react-lite';
 import { BrowserRouter } from 'react-router-dom';
+import { useChangeLang } from './hooks/use-change-lang';
 
 
 function App() {
 	const { store } = useContext(Context);
 	const [isLoading, setIsloading] = useState(true);
+  const changeLang = useChangeLang();
 
 	useEffect(() => {
 		if (localStorage.getItem(LocalStorageKey.TOKEN)) {
-			store.userStore.checkAuth().then(() => setIsloading(false));
+			store.userStore.checkAuth()
+        .then(() => store.configStore.loadConfig())
+        .finally(() => {
+          if (store.configStore.lang) {
+            changeLang(store.configStore.lang);
+          }
+          setIsloading(false);
+        });
 		} else {
 			setIsloading(false);
 		}

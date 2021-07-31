@@ -11,11 +11,13 @@ import { loader } from 'graphql.macro';
 import { useMutation } from 'react-apollo';
 import { Language } from '../../core/enums/languages';
 import { LocalStorageKey } from '../../core/enums/local-storage-key';
+import { useChangeLang } from '../../hooks/use-change-lang';
 
 const UPDATE_USER = loader('../../graphql/mutations/update-user.graphql');
 
 function Settings() {
   const [t, i18n] = useTranslation();
+  const changeLangHook = useChangeLang();
 	const { store } = useContext(Context);
   const [updateUser] = useMutation(UPDATE_USER);
 
@@ -52,9 +54,9 @@ function Settings() {
     store.userStore.setUser(user);
   }
 
-  const changeLang = (lang: Language) => {
-    i18n.changeLanguage(lang);
-    localStorage.setItem(LocalStorageKey.LANG, lang);
+  const changeLang = async (lang: Language) => {
+    changeLangHook(lang);
+    await store.configStore.updateConfig({lang});
   };
 
   return (

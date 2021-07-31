@@ -1,0 +1,5 @@
+mutation ($lang: String, $darkMode: Boolean) {
+  updateConfig(lang: $lang, darkMode: $darkMode) {
+    lang darkMode
+  }
+}

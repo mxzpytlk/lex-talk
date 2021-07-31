@@ -14,9 +14,6 @@ export function useLogin(): [
 		LOGIN_QUERY,
 		{
 			errorPolicy: 'all',
-			// onError(error) {
-			// 	console.log({ ...error });
-			// },
 		}
 	);
 
