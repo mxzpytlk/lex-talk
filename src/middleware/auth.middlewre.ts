@@ -1,12 +1,11 @@
 import { ApolloLink } from 'apollo-boost';
-import { LocalStorageKey } from '../core/enums/local-storage-key';
-import { getFromLocalStorage } from '../core/utils/local-storage.utils';
+import { getAuthHeader } from '../core/utils/api.utils';
 
 export const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
-      authorization: `Bearer ${getFromLocalStorage(LocalStorageKey.TOKEN)}`,
+      authorization: getAuthHeader(),
     }
   }));
 

@@ -6,7 +6,7 @@ import './settings.scss';
 import { observer } from 'mobx-react-lite';
 import Switch from 'react-switch';
 import ImageChooser from '../../components/image-chooser/ImageChooser';
-import { getImgUrl } from '../../core/utils/image.utils';
+import { getImgUrl, updateAvatar } from '../../core/utils/image.utils';
 import { loader } from 'graphql.macro';
 import { useMutation } from 'react-apollo';
 import { Language } from '../../core/enums/languages';
@@ -29,19 +29,13 @@ function Settings() {
     backgroundImage: `url(${imgSrc})`,
   };
 
-  const onImgChange = async (file: File | null | undefined, blob: Blob | undefined) => {
-    const fileName = `${file?.name.split('.')[0]}.jpeg`;
+  const onImgChange = async (_file: File | null | undefined, blob: Blob | undefined) => {
     if (blob) {
       const src = window.URL.createObjectURL(blob);
       setImgSrc(src);
       setImgChooserOpen(false);
-      const res = await updateUser({ variables: {
-        avatar: new File([blob], fileName, {
-          type: 'image/jpeg'
-        })
-      }});
-      const user = res.data.updateUser;
-      store.userStore.setUser(user);
+      const imgId = await updateAvatar(blob);
+      store.userStore.setAvatar(imgId);
     }
   }
 

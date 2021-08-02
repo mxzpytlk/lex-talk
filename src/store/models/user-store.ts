@@ -23,6 +23,12 @@ export class UserStore {
     this.user = user;
   }
 
+  public setAvatar(avatar: string) {
+    if (this.user) {
+      this.user.avatar = avatar;
+    }
+  }
+
   public auth(auth: IAuthSuccess) {
     AuthService.auth(auth);
     this.setIsAuth(auth?.user?.isActivated);

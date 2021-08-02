@@ -1,6 +1,7 @@
 import ScreenConverter, { IPoint } from './geometry.utils';
-import { canvastoFile } from 'image-conversion';
+import { canvastoFile, EImageType } from 'image-conversion';
 import config from '../../assets/config.json';
+import { getAuthHeader, updateAvatarUrl } from './api.utils';
 
 export function cutImage(
 	img: HTMLImageElement,
@@ -16,7 +17,7 @@ export function cutImage(
 	canvas.height = resultHeight || height;
 	const ctx = canvas.getContext('2d');
 	ctx?.drawImage(img, x, y, width, height, 0, 0, canvas.width, canvas.height);
-  return canvastoFile(canvas);
+  return canvastoFile(canvas, .95, EImageType.JPEG);
 }
 
 export function cutSquareImage(
@@ -62,4 +63,17 @@ export function scaleAndCutSquareImg(
 
 export function getImgUrl(imgId: string) {
   return `${config.serverUrl}/api/file/${imgId}`;
+}
+
+export async function updateAvatar(img: Blob) {
+  const res = await fetch(updateAvatarUrl(), {
+    method: 'POST',
+    body: img,
+    headers: {
+      'authorization': getAuthHeader()
+    }
+  });
+  const imgId = await res.text();
+  return imgId.replaceAll('"', '');
+  
 }

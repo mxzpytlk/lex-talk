@@ -9,6 +9,7 @@ import { Context } from '../../';
 import { observer } from 'mobx-react-lite';
 import Navbar from '../../components/navbar/Navbar';
 import ImageChooser from '../../components/image-chooser/ImageChooser';
+import { updateAvatar } from '../../core/utils/image.utils';
 
 interface IFormData {
   username: string;
@@ -23,13 +24,12 @@ function Details() {
 
 	const { t } = useTranslation();
 
-	const [file, setFile] = useState<File | null | undefined>(null);
-
 	const [blob, setBlob] = useState<Blob>();
 
-  const onImgChange = (file: File | null | undefined, blob: Blob | undefined) => {
-    setFile(file);
+  const onImgChange = (_file: File | null | undefined, blob: Blob | undefined) => {
     setBlob(blob);
+    blob && updateAvatar(blob);
+    // store.userStore.user
   }
 
   const validate = (data: IFormData) => {
@@ -44,16 +44,12 @@ function Details() {
   }
 
   const submit = async (data: IFormData) => {
-    if (blob) {
+    if (blob || store.userStore.user?.avatar) {
       try {
-        const fileName = `${file?.name.split('.')[0]}.jpeg`;
         const { username: name, about } = data;
         const res = await updateUser({ variables: {
           name,
           about,
-          avatar: new File([blob], fileName, {
-            type: 'image/jpeg'
-          })
         }});
         const user = res.data.updateUser;
         store.userStore.setUser(user);

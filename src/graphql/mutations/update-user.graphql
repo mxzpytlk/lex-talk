@@ -1,5 +1,5 @@
-mutation ($name: String, $about: String, $avatar: Upload) {
-  updateUser(name: $name, about: $about, avatar: $avatar) {
+mutation ($name: String, $about: String) {
+  updateUser(name: $name, about: $about) {
     name about avatar isActivated id
   }
 }
