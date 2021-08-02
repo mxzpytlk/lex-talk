@@ -5,8 +5,9 @@ import { onError } from 'apollo-link-error';
 import { loader } from 'graphql.macro';
 import { AuthService } from '../service/auth.service';
 import { LocalStorageKey } from '../core/enums/local-storage-key';
+import config from '../assets/config.json';
 
-export const SERVER_URL = 'http://localhost:5000'
+export const SERVER_URL = config.serverUrl;
 const REFRESH_QUERY = loader('../graphql/queries/refresh.graphql');
 
 const httpLink: any = createUploadLink({ 

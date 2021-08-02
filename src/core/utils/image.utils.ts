@@ -1,6 +1,6 @@
 import ScreenConverter, { IPoint } from './geometry.utils';
 import { canvastoFile } from 'image-conversion';
-import { SERVER_URL } from '../../graphql';
+import config from '../../assets/config.json';
 
 export function cutImage(
 	img: HTMLImageElement,
@@ -61,5 +61,5 @@ export function scaleAndCutSquareImg(
 }
 
 export function getImgUrl(imgId: string) {
-  return `${SERVER_URL}/api/file/${imgId}`;
+  return `${config.serverUrl}/api/file/${imgId}`;
 }
