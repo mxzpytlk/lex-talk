@@ -23,7 +23,6 @@ const logoutLink = onError((data) => {
     operation.query = REFRESH_QUERY;
     const res = forward(operation);
     res.subscribe((data) => {
-      console.log(data);
       if (data.data?.refresh) {
         AuthService.auth(data.data?.refresh);
       } else {

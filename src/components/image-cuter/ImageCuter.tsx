@@ -9,7 +9,6 @@ type ImageCuterProps = {
 };
 
 export function ImageCuter(props: ImageCuterProps) {
-	const src = window.URL.createObjectURL(props.file);
 	const [width, setWidth] = useState(0);
 	const [height, setHeight] = useState(0);
 	const [posX, setPosX] = useState(0);
@@ -17,6 +16,7 @@ export function ImageCuter(props: ImageCuterProps) {
 	const [dx, setDx] = useState(0);
 	const [dy, setDy] = useState(0);
 	const [scale, setScale] = useState(1);
+  const [src, setSrc] = useState(window.URL.createObjectURL(props.file))
 
 	const imgStyle = {
 		transform: `translate(${dx * scale}px, ${dy * scale}px) scale(${scale})`,
@@ -33,21 +33,24 @@ export function ImageCuter(props: ImageCuterProps) {
 		setDx(0);
 		setDy(0);
 		setScale(1);
+    setSrc(window.URL.createObjectURL(props.file));
 	}, [props.file]);
 
-	const img = new Image();
+	useEffect(() => {
+		const img = new Image();
 
-	img.src = src;
+		img.src = src;
 
-	img.onload = async () => {
-		img.width /= img.naturalHeight / 300;
-		img.height = 300;
-		setWidth(img.width);
-		setHeight(img.height);
-		if (props.shouldCut) {
-			props.cutFn?.(await scaleAndCutSquareImg(img, -dx, -dy, gridSize, gridSize, scale));
-		}
-	};
+		img.onload = async () => {
+			img.width /= img.naturalHeight / 300;
+			img.height = 300;
+			setWidth(img.width);
+			setHeight(img.height);
+			if (props.shouldCut) {
+				props.cutFn?.(await scaleAndCutSquareImg(img, -dx, -dy, gridSize, gridSize, scale));
+			}
+		};
+	}, [src, props.shouldCut]);
 
 	const getDiff = (
 		clientCoord: number,
