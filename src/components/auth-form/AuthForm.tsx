@@ -1,7 +1,7 @@
 import './auth-form.scss';
 import '../../style/input.scss';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation, useRouteMatch } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { RouterPath } from '../../core/enums/router-path';
 import React, { useContext, useEffect, useState } from 'react';
 import { Formik, Field, Form } from 'formik';
@@ -36,13 +36,20 @@ export function AuthForm() {
   },
   [loginError]);
 
-  if (loginData?.login) {
-    store.userStore.auth(loginData.login);
-    history.push(RouterPath.DEFAULT);
-  }
+  useEffect(() => {
+    if (loginData?.login) {
+      if (loginData?.login?.user && 'isActivated' in loginData.login.user && !loginData.login.user.isActivated) {
+        setErrMessage('Plese activte acount on your email');
+      } else {
+        store.userStore.auth(loginData.login);
+        history.push(RouterPath.DEFAULT);
+      }
+    }
+  }, [loginData?.login]);
+
 
 	const isRegisterPage = () => location.pathname === '/register';
-  
+
 
 	const validate = (values: IAuth) => {
     const { email, password, repeatPass } = values;
@@ -78,10 +85,14 @@ export function AuthForm() {
     } else {
       try {
         const loginData = await login(values);
+        if (loginData?.data?.login && 'isActivated' in loginData.data.login.user && !loginData.data.login.user.isActivated) {
+          setErrMessage('Plese activte acount on your email');
+          return;
+        }
         successAuth = loginData?.data?.login;
       } catch(e) {
         const message = (e?.networkError as any)
-        ?.result?.errors?.[0]?.message;
+        ?.result?.errors?.[0]?.message || e.message;
 
         if (message) {
           setErrMessage(message);

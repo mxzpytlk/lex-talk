@@ -22,7 +22,14 @@ export function useLogin(): [
 
 	const login = async (auth: IAuth) => {
     if (!!refetch) {
-      return await refetch(auth);
+      const res = await refetch(auth);
+      if ('isActivated' in res?.data?.login?.user) {
+        const isActivated = res.data.login.user.isActivated;
+        if (!isActivated) {
+          throw new Error('Please activate account on you email');
+        }
+      }
+      return res;
     } else {
       loginQuery({ variables: auth });
     }
