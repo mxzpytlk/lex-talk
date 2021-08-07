@@ -1,5 +1,7 @@
 @import '../../style/variables/color';
 
+$add-btn-size: 40px;
+
 .chat {
   width: 100vw;
   height: 100vh;
@@ -13,6 +15,7 @@
   overflow-y: auto;
   padding-right: 1px;
   box-sizing: border-box;
+  position: relative;
 
   &__search {
     width: 100%;
@@ -71,5 +74,20 @@
         transform: rotate(-45deg) translateY(-6px);
       }
     }
+  }
+
+  &__add {
+    width: $add-btn-size;
+    height: $add-btn-size;
+    background-color: $primary;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

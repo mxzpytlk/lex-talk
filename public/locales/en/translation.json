@@ -2,7 +2,7 @@
   "common": {
     "or": "or",
     "chat": "Chat",
-    "username": "Username",
+    "username": "username",
     "select": "Select",
     "submit": "Submit",
     "settings": "Settings",
@@ -32,5 +32,9 @@
     "change_image": "Change Image",
     "dark": "Dark Mode",
     "language": "Language"
+  },
+  "user": {
+    "add_to": "add user to contacts",
+    "add_contact": "add contact"
   }
 }

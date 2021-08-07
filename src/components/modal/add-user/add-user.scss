@@ -1,0 +1,20 @@
+.add-user {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0 0 0 0;
+    text-transform: capitalize;
+  }
+
+  &__input {
+    margin: 12px 0;
+  }
+
+  & .lt__submit::first-letter {
+    text-transform: uppercase;
+  }
+}

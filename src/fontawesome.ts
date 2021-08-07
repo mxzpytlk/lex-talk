@@ -6,7 +6,8 @@ import {
 	faSignOutAlt,
 	faCheck,
 	faSearch,
-  faCog
+  faCog,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faSignInAlt, faUserPlus, faCommentAlt, faSignOutAlt, faCheck, faSearch, faCog);
+library.add(faSignInAlt, faUserPlus, faCommentAlt, faSignOutAlt, faCheck, faSearch, faCog, faTimes);

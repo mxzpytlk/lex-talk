@@ -1,0 +1,27 @@
+.modal {
+  width: 45vw;
+  background-color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px 0 rgb(0 0 0 / 50%);
+  position: relative;
+
+  &__background {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+
+  &__close {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    cursor: pointer;
+  }
+}
