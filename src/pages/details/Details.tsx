@@ -10,6 +10,7 @@ import { observer } from 'mobx-react-lite';
 import Navbar from '../../components/navbar/Navbar';
 import ImageChooser from '../../components/image-chooser/ImageChooser';
 import { updateAvatar } from '../../core/utils/image.utils';
+import { capitalize } from '../../core/utils/string.utils';
 
 interface IFormData {
   username: string;
@@ -38,7 +39,7 @@ function Details() {
       if (!(data.username || data.about || blob)) {
         return { error: true };
       }
-    } else if (!(data.username && data.about && blob)) {
+    } else if (!(data.username && data.about && store.userStore.user?.avatar)) {
       return { error: true };
     }
   }
@@ -73,7 +74,7 @@ function Details() {
 				<Form>
 					<Field
 						type="text"
-						placeholder={t('common.username')}
+						placeholder={capitalize(t('common.username'))}
 						className="lt__input"
 						name="username"
 					/>
