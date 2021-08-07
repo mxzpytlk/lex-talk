@@ -7,7 +7,8 @@ import {
 	faCheck,
 	faSearch,
   faCog,
-  faTimes
+  faTimes,
+  faExclamation
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faSignInAlt, faUserPlus, faCommentAlt, faSignOutAlt, faCheck, faSearch, faCog, faTimes);
+library.add(faSignInAlt, faUserPlus, faCommentAlt, faSignOutAlt, faCheck, faSearch, faCog, faTimes, faExclamation);

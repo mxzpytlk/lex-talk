@@ -1,3 +1,7 @@
+@import '../../../style/variables/color';
+
+$err-icon-size: 18px;
+
 .add-user {
   display: flex;
   flex-direction: column;
@@ -12,6 +16,32 @@
 
   &__input {
     margin: 12px 0;
+  }
+
+  &__error {
+    color: $error;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    padding-bottom: .5rem;
+
+    &_icon {
+      border-radius: 50%;
+      background-color: $error;
+      width: $err-icon-size;
+      height: $err-icon-size;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &_msg {
+      padding-left: .25rem;
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
   }
 
   & .lt__submit::first-letter {

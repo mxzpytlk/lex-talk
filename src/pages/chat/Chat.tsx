@@ -12,7 +12,9 @@ export function Chat() {
   const [showMenu, setShowMenu] = useState(false);
   const [showAddUser, setShowAddUser] = useState(false);
 
-  const AddUserModal = AddUser();
+  const AddUserModal = AddUser({
+    close: () => setShowAddUser(false),
+  });
 
   return (
     <div className='chat'>

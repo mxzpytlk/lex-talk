@@ -39,7 +39,7 @@ function Details() {
       if (!(data.username || data.about || blob)) {
         return { error: true };
       }
-    } else if (!(data.username && data.about && store.userStore.user?.avatar)) {
+    } else if (!(data.username && data.about && (blob || store.userStore.user?.avatar))) {
       return { error: true };
     }
   }
