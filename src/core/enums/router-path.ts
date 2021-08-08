@@ -1,9 +1,9 @@
 export enum RouterPath {
-  NOTHING = '*',
-  DEFAULT = '/',
-  LOGIN = '/login',
-  REGISTER = '/register',
-  LOGOUT = '/logout',
-  CHAT = '/chat',
-  SETTINGS = '/settings',
+	NOTHING = '*',
+	DEFAULT = '/',
+	LOGIN = '/login',
+	REGISTER = '/register',
+	LOGOUT = '/logout',
+	CHAT = '/chat',
+	SETTINGS = '/settings',
 }

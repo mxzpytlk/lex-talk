@@ -10,9 +10,9 @@ interface IMenuProps {
 	onClick: () => void;
 }
 
-export function Menu(props: IMenuProps) {
+export function Menu(props: IMenuProps): JSX.Element {
 	const [hideMenu, setHideMenu] = useState(true);
-  const { store } = useContext(Context);
+	const { store } = useContext(Context);
 
 	useEffect(() => {
 		setHideMenu(false);
@@ -23,27 +23,20 @@ export function Menu(props: IMenuProps) {
 		setTimeout(() => props.onClick(), 200);
 	};
 
-
-
 	return (
-		<div className='menu__background' onClick={close}>
+		<div className="menu__background" onClick={close}>
 			<div
 				className={classnames(store.configStore.darkClass('menu'), hideMenu && 'menu__hide')}
 				onClick={(e) => e.stopPropagation()}
 			>
-				<img
-          src={logo}
-          alt=""
-          width="220"
-          height="220"
-          className="menu__img"
-          onClick={close} 
-        />
-        <div className='menu__links'>
-          {links
-            .filter((link) => link.needAuth)
-            .map((link) => <NavigationLink link={link} key={link.text} />)}
-        </div>
+				<img src={logo} alt="" width="220" height="220" className="menu__img" onClick={close} />
+				<div className="menu__links">
+					{links
+						.filter((link) => link.needAuth)
+						.map((link) => (
+							<NavigationLink link={link} key={link.text} />
+						))}
+				</div>
 			</div>
 		</div>
 	);

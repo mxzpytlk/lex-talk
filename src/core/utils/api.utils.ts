@@ -5,14 +5,14 @@ import { getFromLocalStorage } from './local-storage.utils';
 
 export const SERVER_URL = config.serverUrl;
 
-export function getUrl(route: ApiRoute) {
-  return `${SERVER_URL}/api/${route}`;
+export function getUrl(route: ApiRoute): string {
+	return `${SERVER_URL}/api/${route}`;
 }
 
-export function updateAvatarUrl() {
-  return getUrl(ApiRoute.UPDATE_AVATAR);
+export function updateAvatarUrl(): string {
+	return getUrl(ApiRoute.UPDATE_AVATAR);
 }
 
-export function getAuthHeader() {
-  return `Bearer ${getFromLocalStorage(LocalStorageKey.TOKEN)}`;
+export function getAuthHeader(): string {
+	return `Bearer ${getFromLocalStorage(LocalStorageKey.TOKEN)}`;
 }

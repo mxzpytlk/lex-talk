@@ -8,7 +8,7 @@ type ImageCuterProps = {
 	cutFn?: (img: Blob) => unknown,
 };
 
-export function ImageCuter(props: ImageCuterProps) {
+export function ImageCuter(props: ImageCuterProps): JSX.Element {
 	const [width, setWidth] = useState(0);
 	const [height, setHeight] = useState(0);
 	const [posX, setPosX] = useState(0);
@@ -16,7 +16,7 @@ export function ImageCuter(props: ImageCuterProps) {
 	const [dx, setDx] = useState(0);
 	const [dy, setDy] = useState(0);
 	const [scale, setScale] = useState(1);
-  const [src, setSrc] = useState(window.URL.createObjectURL(props.file))
+	const [src, setSrc] = useState(window.URL.createObjectURL(props.file));
 
 	const imgStyle = {
 		transform: `translate(${dx * scale}px, ${dy * scale}px) scale(${scale})`,
@@ -33,7 +33,7 @@ export function ImageCuter(props: ImageCuterProps) {
 		setDx(0);
 		setDy(0);
 		setScale(1);
-    setSrc(window.URL.createObjectURL(props.file));
+		setSrc(window.URL.createObjectURL(props.file));
 	}, [props.file]);
 
 	useEffect(() => {

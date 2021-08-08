@@ -10,26 +10,20 @@ type NavigationLinkProps = {
 	link: INavigationLink,
 };
 
-export function NavigationLink(props: NavigationLinkProps) {
-  const { t } = useTranslation();
-  const { pathname } = useLocation();
+export function NavigationLink(props: NavigationLinkProps): JSX.Element {
+	const { t } = useTranslation();
+	const { pathname } = useLocation();
 
-  const isActive = () => (pathname === props.link.path || 
-    props.link.possiblePathes?.some((path) => path === pathname));
+	const isActive = () =>
+		pathname === props.link.path || props.link.possiblePathes?.some((path) => path === pathname);
 
 	return (
 		<a
 			href={props.link.path}
-			className={classNames(
-				'link',
-				isActive() ? 'link__active' : 'link__not-active'
-			)}
+			className={classNames('link', isActive() ? 'link__active' : 'link__not-active')}
 		>
 			{t(props.link.text)}
-			<FontAwesomeIcon
-				icon={props.link.icon}
-				className="link__icon"
-			/>
+			<FontAwesomeIcon icon={props.link.icon} className="link__icon" />
 			<div className="link__border"></div>
 		</a>
 	);

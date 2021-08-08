@@ -8,9 +8,8 @@ import { RouterPath } from '../../core/enums/router-path';
 import { observer } from 'mobx-react-lite';
 import { AppRouter } from '../../route/AppRouter';
 
-
 function Main() {
-  const logout = useLogout();
+	const logout = useLogout();
 	const location = useLocation();
 	const { store } = useContext(Context);
 
@@ -19,24 +18,24 @@ function Main() {
 		if (pathname === RouterPath.LOGOUT) {
 			logout().then(() => {
 				store.userStore.setIsAuth(false);
-        store.userStore.setUser(null);
+				store.userStore.setUser(null);
 			});
 		}
 	}, [location.pathname]);
 
-  if (!store.userStore.isDetails) {
-    return (
-      <div className={store.configStore.darkClass('main')}>
-        <Details />
-      </div>
-    );
-  }
+	if (!store.userStore.isDetails) {
+		return (
+			<div className={store.configStore.darkClass('main')}>
+				<Details />
+			</div>
+		);
+	}
 
 	return (
-    <div className={store.configStore.darkClass('main')}>
-      <AppRouter/>
-    </div>
-  );
+		<div className={store.configStore.darkClass('main')}>
+			<AppRouter />
+		</div>
+	);
 }
 
 export default observer(Main);

@@ -1,5 +1,5 @@
 export enum LocalStorageKey {
-  TOKEN = 'token',
-  LANG = 'lang',
-  DARK = 'dark_mode'
+	TOKEN = 'token',
+	LANG = 'lang',
+	DARK = 'dark_mode',
 }

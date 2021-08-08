@@ -10,24 +10,24 @@ import { BrowserRouter } from 'react-router-dom';
 import { useChangeLang } from './hooks/use-change-lang';
 import { getFromLocalStorage } from './core/utils/local-storage.utils';
 
-
 function App() {
 	const { store } = useContext(Context);
 	const [isLoading, setIsloading] = useState(true);
-  const changeLang = useChangeLang();
+	const changeLang = useChangeLang();
 
 	useEffect(() => {
 		if (getFromLocalStorage(LocalStorageKey.TOKEN)) {
-			store.userStore.checkAuth()
-        .then((isAuth) => {
-          isAuth && store.configStore.loadConfig()
-        })
-        .finally(() => {
-          if (store.configStore.lang) {
-            changeLang(store.configStore.lang);
-          }
-          setIsloading(false);
-        });
+			store.userStore
+				.checkAuth()
+				.then((isAuth) => {
+					isAuth && store.configStore.loadConfig();
+				})
+				.finally(() => {
+					if (store.configStore.lang) {
+						changeLang(store.configStore.lang);
+					}
+					setIsloading(false);
+				});
 		} else {
 			setIsloading(false);
 		}
@@ -36,12 +36,7 @@ function App() {
 	if (isLoading) {
 		return (
 			<div className={store.configStore.darkClass('loading')}>
-				<ReactLoading
-					type={'spinningBubbles'}
-					color={'blue'}
-					height={150}
-					width={150}
-				/>
+				<ReactLoading type={'spinningBubbles'} color={'blue'} height={150} width={150} />
 			</div>
 		);
 	}

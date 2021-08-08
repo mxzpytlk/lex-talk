@@ -1,3 +1,3 @@
 export interface IModal {
-  close: () => void;
+	close: () => void;
 }

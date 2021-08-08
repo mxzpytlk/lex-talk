@@ -7,11 +7,9 @@ import { observer } from 'mobx-react-lite';
 import { Context } from '../..';
 
 function Navbar() {
-
 	const { store } = useContext(Context);
 
-  const isActive = (link: INavigationLink) => store.userStore.isAuth === link.needAuth;
-
+	const isActive = (link: INavigationLink) => store.userStore.isAuth === link.needAuth;
 
 	return (
 		<nav className={store.configStore.darkClass('nav')}>
@@ -20,9 +18,9 @@ function Navbar() {
 				<span className="nav__app_name">lextalk</span>
 			</div>
 			<div className="nav__btns">
-        {links
-          .filter(isActive)
-          .map((link) => <NavigationLink link={link} key={link.text} />)}
+				{links.filter(isActive).map((link) => (
+					<NavigationLink link={link} key={link.text} />
+				))}
 			</div>
 		</nav>
 	);

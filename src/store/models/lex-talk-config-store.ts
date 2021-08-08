@@ -23,45 +23,46 @@ export class LexTalkConfigStore implements ILexTalkConfig {
   public darkMode = getBooleanFromLocalStorage(LocalStorageKey.DARK) || false;
 
   constructor() {
-    makeAutoObservable(this);
+  	makeAutoObservable(this);
   }
 
   public setLang(lang: Language): void {
-    setInLocalStorage(LocalStorageKey.LANG, lang);
-    this.lang = lang;
+  	setInLocalStorage(LocalStorageKey.LANG, lang);
+  	this.lang = lang;
   }
 
-  public setDarkMode(darkMode: boolean) {
-    this.darkMode = darkMode;
-    setInLocalStorage(LocalStorageKey.DARK, darkMode);
+  public setDarkMode(darkMode: boolean): void {
+  	this.darkMode = darkMode;
+  	setInLocalStorage(LocalStorageKey.DARK, darkMode);
   }
 
   public async updateConfig(config: Partial<ILexTalkConfig>): Promise<void> {
-    try {
-      const newConfig = await client.mutate<IUpdateConfigMutation>({
-        mutation: UPDATE_CONFIG_MUTATION,
-        variables: { ...config }
-      });
-      const { lang, darkMode } = newConfig.data?.updateConfig as ILexTalkConfig;
-      this.setLang(lang);
-      this.setDarkMode(darkMode);
-    } catch(e) {}
+  	try {
+  		const newConfig = await client.mutate<IUpdateConfigMutation>({
+  			mutation: UPDATE_CONFIG_MUTATION,
+  			variables: { ...config }
+  		});
+  		const { lang, darkMode } = newConfig.data?.updateConfig as ILexTalkConfig;
+  		this.setLang(lang);
+  		this.setDarkMode(darkMode);
+  	// eslint-disable-next-line no-empty
+  	} catch(e) {}
   }
 
   public async loadConfig(): Promise<void> {
-    const config = await client.query<IConfigQuery>({
-      query: CONFIG_QUERY
-    });
-    if (!config.data?.getConfig) {
-      return;
-    }
-    const { lang, darkMode } = config.data?.getConfig;
-    this.lang = lang || this.lang;
-    this.darkMode = darkMode === null ? this.darkMode : darkMode;
-    setInLocalStorage(LocalStorageKey.DARK ,this.darkMode);
+  	const config = await client.query<IConfigQuery>({
+  		query: CONFIG_QUERY
+  	});
+  	if (!config.data?.getConfig) {
+  		return;
+  	}
+  	const { lang, darkMode } = config.data?.getConfig;
+  	this.lang = lang || this.lang;
+  	this.darkMode = darkMode === null ? this.darkMode : darkMode;
+  	setInLocalStorage(LocalStorageKey.DARK ,this.darkMode);
   }
 
   public darkClass(className: string): string {
-    return this.darkMode ? `${className} ${className}-dark` : className;
+  	return this.darkMode ? `${className} ${className}-dark` : className;
   }
 }

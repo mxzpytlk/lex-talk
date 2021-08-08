@@ -6,7 +6,7 @@ import { useAddContact } from '../../../hooks/use-add-contact';
 import { IModal } from '../modal.interface';
 import './add-user.scss';
 
-export function AddUser(props: IModal) {
+export function AddUser(props: IModal): JSX.Element {
 	const [t] = useTranslation();
 	const [contactName, setContactName] = useState('');
 	const [errMessage, setErrMessage] = useState('');
@@ -15,7 +15,7 @@ export function AddUser(props: IModal) {
 	const findUser = async () => {
 		try {
 			await addContact(contactName);
-      setErrMessage('');
+			setErrMessage('');
 			props.close();
 		} catch (e) {
 			const err = new GQLError(e);
@@ -36,7 +36,7 @@ export function AddUser(props: IModal) {
 			/>
 			{errMessage && (
 				<div className="add-user__error">
-					<div className='add-user__error_icon'>
+					<div className="add-user__error_icon">
 						<FontAwesomeIcon icon={['fas', 'exclamation']} />
 					</div>
 					<span className="add-user__error_msg">{t(errMessage)}</span>

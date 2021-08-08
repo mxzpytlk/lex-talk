@@ -12,43 +12,45 @@ export class UserStore {
   public isAuth = false;
 
   constructor() {
-    makeAutoObservable(this);
+  	makeAutoObservable(this);
   }
 
   public setIsAuth(isAuth: boolean): void {
-    this.isAuth = isAuth;
+  	this.isAuth = isAuth;
   }
 
-  public setUser(user: IUser | null) {
-    this.user = user;
+  public setUser(user: IUser | null): void {
+  	this.user = user;
   }
 
-  public setAvatar(avatar: string) {
-    if (this.user) {
-      this.user.avatar = avatar;
-    }
+  public setAvatar(avatar: string): void {
+  	if (this.user) {
+  		this.user.avatar = avatar;
+  	}
   }
 
-  public auth(auth: IAuthSuccess) {
-    AuthService.auth(auth);
-    this.setIsAuth(auth?.user?.isActivated);
-    this.setUser(auth?.user);
+  public auth(auth: IAuthSuccess): void {
+  	AuthService.auth(auth);
+  	this.setIsAuth(auth?.user?.isActivated);
+  	this.setUser(auth?.user);
   }
 
   public get isDetails(): boolean {
-    return !!(this.user?.about && this.user.avatar && this.user.name);
+  	return !!(this.user?.about && this.user.avatar && this.user.name);
   }
 
   public async checkAuth(): Promise<boolean> {
-    try {
-      const res = await client.query<IRefreshQuery>({
-        query: REFRESH_QUERY
-      });
-      if (res.data?.refresh) {
-        this.auth(res?.data?.refresh);
-      }
-    } catch (e) { } finally { 
-      return !!this.user;
-    }
+  	try {
+  		const res = await client.query<IRefreshQuery>({
+  			query: REFRESH_QUERY
+  		});
+  		if (res.data?.refresh) {
+  			this.auth(res?.data?.refresh);
+  		}
+  	// eslint-disable-next-line no-empty
+  	} catch (e) { } finally { 
+  		// eslint-disable-next-line no-unsafe-finally
+  		return !!this.user;
+  	}
   }
 }

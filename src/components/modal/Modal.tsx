@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
-import { Context } from '../../'
+import { Context } from '../../';
 import './modal.scss';
 
 interface IModal {
@@ -10,14 +10,14 @@ interface IModal {
 }
 
 function Modal(props: IModal) {
-  const { store } = useContext(Context);
+	const { store } = useContext(Context);
 
 	return (
-		<div className='modal__background' onClick={props.close}>
+		<div className="modal__background" onClick={props.close}>
 			<div className={store.configStore.darkClass('modal')} onClick={(e) => e.stopPropagation()}>
-        <FontAwesomeIcon icon={['fas', 'times']} className='modal__close' onClick={props.close}/>
-        {props.child}
-      </div>
+				<FontAwesomeIcon icon={['fas', 'times']} className="modal__close" onClick={props.close} />
+				{props.child}
+			</div>
 		</div>
 	);
 }

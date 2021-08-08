@@ -10,32 +10,33 @@ import config from '../assets/config.json';
 export const SERVER_URL = config.serverUrl;
 const REFRESH_QUERY = loader('../graphql/queries/refresh.graphql');
 
-const httpLink: any = createUploadLink({ 
-  uri: `${SERVER_URL}/graphql`,
-  credentials: 'include'
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const httpLink: any = createUploadLink({
+	uri: `${SERVER_URL}/graphql`,
+	credentials: 'include',
 });
-
 
 const logoutLink = onError((data) => {
-  const { graphQLErrors, operation, forward } =  data;
-  const error = graphQLErrors?.[0];
+	const { graphQLErrors, operation, forward } = data;
+	const error = graphQLErrors?.[0];
 
-  if (error?.extensions?.code === 'UNAUTHENTICATED') {
-    operation.query = REFRESH_QUERY;
-    const res = forward(operation);
-    res.subscribe((data) => {
-      if (data.data?.refresh) {
-        AuthService.auth(data.data?.refresh);
-      } else {
-        localStorage.removeItem(LocalStorageKey.TOKEN);
-      }
-    }).unsubscribe();
-    return res;
-  }
+	if (error?.extensions?.code === 'UNAUTHENTICATED') {
+		operation.query = REFRESH_QUERY;
+		const res = forward(operation);
+		res
+			.subscribe((data) => {
+				if (data.data?.refresh) {
+					AuthService.auth(data.data?.refresh);
+				} else {
+					localStorage.removeItem(LocalStorageKey.TOKEN);
+				}
+			})
+			.unsubscribe();
+		return res;
+	}
 });
 
-
 export const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: from([authMiddleware, logoutLink, httpLink]),
+	cache: new InMemoryCache(),
+	link: from([authMiddleware, logoutLink, httpLink]),
 });

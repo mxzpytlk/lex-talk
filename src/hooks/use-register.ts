@@ -11,11 +11,11 @@ export function useRegister(): (
 
 	const register = async (values: IAuth) => {
 		if (values.password === values.repeatPass) {
-      try {
-			  return await registerMutation({ variables: values });
-      } catch (e) {
-        throw e?.networkError?.result?.errors?.[0] || e;
-      }
+			try {
+				return await registerMutation({ variables: values });
+			} catch (e) {
+				throw e?.networkError?.result?.errors?.[0] || e;
+			}
 		}
 	};
 	return register;

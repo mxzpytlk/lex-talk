@@ -1,8 +1,9 @@
+import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { RouterPath } from '../core/enums/router-path';
 import { routes } from './routes';
 
-export function AppRouter() {
+export function AppRouter(): JSX.Element {
 	return (
 		<Switch>
 			{routes.map(({ path, Component }) => (

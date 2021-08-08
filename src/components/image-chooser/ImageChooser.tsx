@@ -5,10 +5,10 @@ import { ImageCuter } from '../image-cuter/ImageCuter';
 import './image-chooser.scss';
 
 type ImageChooserProps = {
-  onImgChange: (file: File | null | undefined, blob: Blob | undefined) => unknown,
-}
+	onImgChange: (file: File | null | undefined, blob: Blob | undefined) => unknown,
+};
 
-export default function ImageChooser(props: ImageChooserProps) {
+export default function ImageChooser(props: ImageChooserProps): JSX.Element {
 	const { t } = useTranslation();
 	const [selectImgBtnPressed, setSelectImgBtnPressed] = useState(false);
 	const [blob, setBlob] = useState<Blob>();
@@ -16,17 +16,17 @@ export default function ImageChooser(props: ImageChooserProps) {
 
 	const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e?.target?.files?.item(0)) {
-      const curFile = e.target.files?.item(0);
+			const curFile = e.target.files?.item(0);
 			setBlob(undefined);
 			setFile(curFile);
-      props.onImgChange(curFile, undefined);
+			props.onImgChange(curFile, undefined);
 		}
 	};
 
 	const cut = (blob: Blob) => {
 		setSelectImgBtnPressed(false);
 		setBlob(blob);
-    props.onImgChange(file, blob);
+		props.onImgChange(file, blob);
 	};
 
 	return (
@@ -44,7 +44,7 @@ export default function ImageChooser(props: ImageChooserProps) {
 				</button>
 				<span className="image-chooser__file_name">{file?.name || t('details.no_file')}</span>
 				{!!file &&
-					(!!blob ? (
+					(blob ? (
 						<FontAwesomeIcon icon={['fas', 'check']} className="image-chooser__file_success" />
 					) : (
 						<button
