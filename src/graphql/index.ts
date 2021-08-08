@@ -18,8 +18,9 @@ const httpLink: any = createUploadLink({
 
 const logoutLink = onError((data) => {
   const { graphQLErrors, operation, forward } =  data;
-  const error: any = graphQLErrors?.[0];
-  if (error?.statusCode === 401) {
+  const error = graphQLErrors?.[0];
+
+  if (error?.extensions?.code === 'UNAUTHENTICATED') {
     operation.query = REFRESH_QUERY;
     const res = forward(operation);
     res.subscribe((data) => {

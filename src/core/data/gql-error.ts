@@ -3,7 +3,8 @@ export class GQLError extends Error{
 
   constructor(e: any) {
     super();
-    this.message = e.message || e.networkError?.result?.errors?.[0]?.message;
+    const message = e.message || e.networkError?.result?.errors?.[0]?.message;
+    this.message = message.replace('GraphQL error: ', '') || '';
     this.statusCode = e.networkError?.result?.errors?.[0]?.statusCode;
   }
 }

@@ -1,4 +1,4 @@
-mutation ($name: String) {
+mutation ($name: String!) {
   addContact(name: $name) {
     id
   }
