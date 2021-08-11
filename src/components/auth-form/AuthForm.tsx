@@ -1,5 +1,4 @@
-import './auth-form.scss';
-import '../../style/input.scss';
+import classes from './auth-form.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
 import { RouterPath } from '../../core/enums/router-path';
@@ -90,8 +89,6 @@ export function AuthForm(): JSX.Element {
 				}
 				successAuth = loginData?.data?.login;
 			} catch (e) {
-				// TODO Fix eslint problem
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const message = e.message;
 				if (message) {
 					setErrMessage(message);
@@ -105,11 +102,13 @@ export function AuthForm(): JSX.Element {
 	};
 
 	return (
-		<div className={store.configStore.darkClass('auth__form')}>
+		<div className={classes.auth__form} data-dark={store.configStore.darkMode}>
 			<Formik initialValues={{ email: '', password: '' }} validate={validate} onSubmit={submit}>
 				<Form>
-					<h2 className="auth__title">{t(isRegisterPage() ? 'auth.register' : 'auth.login')}</h2>
-					<hr className="auth__hr" />
+					<h2 className={classes.auth__title}>
+						{t(isRegisterPage() ? 'auth.register' : 'auth.login')}
+					</h2>
+					<hr className={classes.auth__hr} />
 					<Field type="email" placeholder="Email" className="lt__input" name="email" />
 					<Field
 						type="password"
@@ -125,10 +124,10 @@ export function AuthForm(): JSX.Element {
 							name="repeatPass"
 						/>
 					)}
-					<p className="auth__message">
+					<p className={classes.auth__message}>
 						<span>{t(!isRegisterPage() ? 'auth.not_register' : 'auth.already')} </span>
 						<a
-							className="auth__message_link"
+							className={classes.auth__message_link}
 							href={isRegisterPage() ? RouterPath.LOGIN : RouterPath.REGISTER}
 						>
 							{t(!isRegisterPage() ? 'auth.register' : 'auth.login')}
@@ -140,8 +139,8 @@ export function AuthForm(): JSX.Element {
 						className="lt__submit"
 						name="submit"
 					/>
-					{!!errMessage && <span className="auth__err">{t(errMessage)}</span>}
-					{registerSuccess && <span className="auth__success">{t('auth.success')}</span>}
+					{!!errMessage && <span className={classes.auth__err}>{t(errMessage)}</span>}
+					{registerSuccess && <span className={classes.auth__success}>{t('auth.success')}</span>}
 				</Form>
 			</Formik>
 		</div>

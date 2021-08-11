@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Formik, Field, Form } from 'formik';
-import './details.scss';
+import classes from'./details.module.scss';
 import '../../style/input.scss';
 import React, { useContext, useState } from 'react';
 import { loader } from 'graphql.macro';
@@ -62,9 +62,9 @@ function Details(): JSX.Element {
 
 
 	return (
-		<div className='details'>
+		<div className={classes.details}>
 			<Navbar />
-			<h1 className="details__h1">{t('details.title')}</h1>
+			<h1 className={classes.details__h1}>{t('details.title')}</h1>
 			<hr />
 			<Formik
 				initialValues={{ username: '', about: '' }}
@@ -87,7 +87,7 @@ function Details(): JSX.Element {
 					<Field
 						type="submit"
 						value={t('common.submit') as string}
-						className='lt__submit details__summit'
+						className={`lt__submit ${classes.details__submit}`}
 					/>
 				</Form>
 			</Formik>

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './menu.scss';
+import classes from './menu.module.scss';
 import classnames from 'classnames';
 import logo from '../../assets/logo.svg';
 import { links } from '../../core/data/navigation-link';
@@ -24,13 +24,24 @@ export function Menu(props: IMenuProps): JSX.Element {
 	};
 
 	return (
-		<div className="menu__background" onClick={close}>
+		<div className={classes.menu__background} onClick={close}>
 			<div
-				className={classnames(store.configStore.darkClass('menu'), hideMenu && 'menu__hide')}
+				className={classnames(
+					classes.menu,
+					hideMenu && classes.menu__hide
+				)}
+				data-dark={store.configStore.darkMode}
 				onClick={(e) => e.stopPropagation()}
 			>
-				<img src={logo} alt="" width="220" height="220" className="menu__img" onClick={close} />
-				<div className="menu__links">
+				<img
+					src={logo}
+					alt=""
+					width="220"
+					height="220"
+					className={classes.menu__img}
+					onClick={close}
+				/>
+				<div className={classes.menu__links}>
 					{links
 						.filter((link) => link.needAuth)
 						.map((link) => (

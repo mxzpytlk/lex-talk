@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { scaleAndCutSquareImg } from '../../core/utils/image.utils';
-import './image-cuter.scss';
+import classes from './image-cuter.module.scss';
 
 type ImageCuterProps = {
 	file: File,
@@ -108,9 +108,9 @@ export function ImageCuter(props: ImageCuterProps): JSX.Element {
 	};
 
 	return (
-		<div className="cut__container">
+		<div className={classes.cut__container}>
 			{!!(posX || posY) && (
-				<div className="cut__move" onMouseUp={onMouseUp} onMouseMove={onMove}></div>
+				<div className={classes.cut__move} onMouseUp={onMouseUp} onMouseMove={onMove}></div>
 			)}
 			<img
 				src={src}
@@ -118,21 +118,21 @@ export function ImageCuter(props: ImageCuterProps): JSX.Element {
 				height={height}
 				width={width}
 				style={imgStyle}
-				className="cut__img"
+				className={classes.cut__img}
 				draggable="false"
 			/>
 			<div
-				className="cut__cutter"
+				className={classes.cut__cutter}
 				onMouseDown={(e) => {
 					setPosX(e.clientX);
 					setPosY(e.clientY);
 				}}
 				onWheel={onWheel}
 			>
-				<div className="cut__cutter_side"></div>
-				<div className="cut__cutter_center">
-					<div className="cut__cutter_side"></div>
-					<table className="cut__cutter_grid" style={gridStyle}>
+				<div className={classes.cut__cutter_side}></div>
+				<div className={classes.cut__cutter_center}>
+					<div className={classes.cut__cutter_side}></div>
+					<table className={classes.cut__cutter_grid} style={gridStyle}>
 						<tbody>
 							<tr>
 								<td></td>
@@ -151,9 +151,9 @@ export function ImageCuter(props: ImageCuterProps): JSX.Element {
 							</tr>
 						</tbody>
 					</table>
-					<div className="cut__cutter_side"></div>
+					<div className={classes.cut__cutter_side}></div>
 				</div>
-				<div className="cut__cutter_side"></div>
+				<div className={classes.cut__cutter_side}></div>
 			</div>
 		</div>
 	);

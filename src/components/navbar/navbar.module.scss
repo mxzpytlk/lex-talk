@@ -13,10 +13,10 @@
   justify-content: space-around;
   top: 0;
   left: 0;
-
-  &-dark {
+  &[data-dark="true"] {
     background-color: $light-dark;
   }
+
 
   &__app{
     display: flex;

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactLoading from 'react-loading';
-import './App.scss';
+import classes from './App.module.scss';
 import Auth from './pages/auth/Auth';
 import Main from './pages/main/Main';
 import { Context } from './';
@@ -35,7 +35,7 @@ function App() {
 
 	if (isLoading) {
 		return (
-			<div className={store.configStore.darkClass('loading')}>
+			<div className={classes.loading} data-dark={store.configStore.darkMode}>
 				<ReactLoading type={'spinningBubbles'} color={'blue'} height={150} width={150} />
 			</div>
 		);
@@ -50,7 +50,7 @@ function App() {
 	}
 
 	return (
-		<div className={store.configStore.darkClass('app')}>
+		<div className={classes.app} data-dark={store.configStore.darkMode}>
 			<Auth />
 		</div>
 	);

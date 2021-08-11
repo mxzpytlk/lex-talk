@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ImageCuter } from '../image-cuter/ImageCuter';
-import './image-chooser.scss';
+import classes from './image-chooser.module.scss';
 
 type ImageChooserProps = {
 	onImgChange: (file: File | null | undefined, blob: Blob | undefined) => unknown,
@@ -30,25 +30,25 @@ export default function ImageChooser(props: ImageChooserProps): JSX.Element {
 	};
 
 	return (
-		<div className="image-chooser">
-			<div className="image-chooser__container">
-				<button className="image-chooser__file_btn">
-					<label className="image-chooser__file_label">{t('details.picture')}</label>
+		<div className={classes['image-chooser']}>
+			<div className={classes['image-chooser__container']}>
+				<button className={classes['image-chooser__file_btn']}>
+					<label className={classes['image-chooser__file_label']}>{t('details.picture')}</label>
 					<input
 						type="file"
-						className="image-chooser__file"
+						className={classes['image-chooser__file']}
 						name="picture"
 						onChange={changeFile}
 						accept=".jpeg, .png, .jpg"
 					/>
 				</button>
-				<span className="image-chooser__file_name">{file?.name || t('details.no_file')}</span>
+				<span className={classes['image-chooser__file_name']}>{file?.name || t('details.no_file')}</span>
 				{!!file &&
 					(blob ? (
-						<FontAwesomeIcon icon={['fas', 'check']} className="image-chooser__file_success" />
+						<FontAwesomeIcon icon={['fas', 'check']} className={classes['image-chooser__file_success']} />
 					) : (
 						<button
-							className="image-chooser__file_btn"
+							className={classes['image-chooser__file_btn']}
 							onClick={() => setSelectImgBtnPressed(true)}
 						>
 							{t('common.select')}

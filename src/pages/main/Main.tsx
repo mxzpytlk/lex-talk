@@ -1,4 +1,4 @@
-import './main.scss';
+import classes from './main.module.scss';
 import Details from '../details/Details';
 import { useLogout } from '../../hooks/use-logout';
 import { useLocation } from 'react-router';
@@ -25,14 +25,14 @@ function Main() {
 
 	if (!store.userStore.isDetails) {
 		return (
-			<div className={store.configStore.darkClass('main')}>
+			<div className={classes.main} data-dark={store.configStore.darkMode}>
 				<Details />
 			</div>
 		);
 	}
 
 	return (
-		<div className={store.configStore.darkClass('main')}>
+		<div className={classes.main} data-dark={store.configStore.darkMode}>
 			<AppRouter />
 		</div>
 	);

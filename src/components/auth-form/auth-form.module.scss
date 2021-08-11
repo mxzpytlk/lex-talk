@@ -11,7 +11,7 @@
     box-shadow: 0 0 8px 0 $shadow;
     border-radius: 8px;
 
-    &-dark {
+    &[data-dark="true"] {
       background-color: $light-dark;
       color: white;
     }

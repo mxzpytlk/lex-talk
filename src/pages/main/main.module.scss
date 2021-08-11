@@ -6,7 +6,7 @@
   box-sizing: border-box;
   background-color: $background;
 
-  &-dark {
+  &[data-dark="true"] {
     background-color: $bg-dark;
     color: white;
   }

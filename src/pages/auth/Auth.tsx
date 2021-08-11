@@ -1,15 +1,15 @@
 import Navbar from '../../components/navbar/Navbar';
 import animatedLogo from '../../assets/back-animation.svg';
-import './auth.scss';
+import classes from './auth.module.scss';
 import React from 'react';
 import { AuthForm } from '../../components/auth-form/AuthForm';
 
 export default function Auth(): JSX.Element {
 	return (
-		<div className="auth">
+		<div className={classes.classes}>
 			<Navbar />
-			<div className="auth__container">
-				<img className="auth__animated" src={animatedLogo} alt="Animated logo" />
+			<div className={classes.auth__container}>
+				<img className={classes.auth__animated} src={animatedLogo} alt="Animated logo" />
 				<AuthForm />
 			</div>
 		</div>

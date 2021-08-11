@@ -6,7 +6,7 @@
   background-color: white;
   z-index: 30;
 
-  &-dark {
+  &[data-dark="true"] {
     background-color: $light-dark;
   }
 
