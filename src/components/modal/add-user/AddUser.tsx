@@ -6,12 +6,13 @@ import { useAddContact } from '../../../hooks/use-add-contact';
 import { IModal } from '../modal.interface';
 import classes from './add-user.module.scss';
 import classname from 'classnames';
+import ReactLoading from 'react-loading';
 
 export function AddUser(props: IModal): JSX.Element {
   const [t] = useTranslation();
   const [contactName, setContactName] = useState('');
   const [errMessage, setErrMessage] = useState('');
-  const addContact = useAddContact();
+  const { addContact, isLoading } = useAddContact();
 
   const findUser = async () => {
     try {
@@ -44,9 +45,12 @@ export function AddUser(props: IModal): JSX.Element {
         </div>
       )}
       <div>
-        <button onClick={findUser} className={classname('lt__submit', classes.submit)}>
-          {t('user.add_contact')}
-        </button>
+        {isLoading ?
+          <ReactLoading width={70} height={70} color='blue' type='spinningBubbles'/>
+          :
+          <button onClick={findUser} className={classname('lt__submit', classes.submit)}>
+            {t('user.add_contact')}
+          </button>}
       </div>
     </div>
   );

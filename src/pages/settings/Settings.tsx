@@ -13,6 +13,7 @@ import { Language } from '../../core/enums/languages';
 import { useChangeLang } from '../../hooks/use-change-lang';
 import classnames from 'classnames';
 import { LoadedImage } from '../../components/loaded-image/LoadedImage';
+import ReactLoading from 'react-loading';
 
 const UPDATE_USER = loader('../../graphql/mutations/update-user.graphql');
 
@@ -21,7 +22,7 @@ function Settings() {
   const changeLangHook = useChangeLang();
   const { store } = useContext(Context);
   const { userStore } = store;
-  const [updateUser] = useMutation(UPDATE_USER);
+  const [updateUser, { loading: aboutLoading }] = useMutation(UPDATE_USER);
 
   const [aboutValue, setAboutValue] = useState(store.userStore.user?.about as string);
   const [imgChooserOpen, setImgChooserOpen] = useState(false);
@@ -69,6 +70,27 @@ function Settings() {
     </LoadedImage>
   );
 
+  const UpdateAboutBtn = () => {
+    if (aboutLoading) {
+      return (
+        <ReactLoading
+          type='spinningBubbles'
+          className={classes.settings__about_update}
+          width={45}
+          height={45}
+          color='blue'
+        />
+      );
+    }
+    return (
+      <button
+        className={`lt__submit ${classes.settings__about_update}`}
+        onClick={updateAbout}
+      >
+        {t('common.update')}
+      </button>);
+  };
+
   return (
     <div className={classes.settings}>
       <Navbar />
@@ -86,10 +108,7 @@ function Settings() {
           value={aboutValue}
           onChange={(e) => setAboutValue(e.target.value)}
         />
-        {
-          aboutValue !== store.userStore.user?.about &&
-          <button className={`lt__submit ${classes.settings__about_update}`} onClick={updateAbout}>{t('common.update')}</button>
-        }
+        { aboutValue !== userStore.user?.about && <UpdateAboutBtn /> }
       </div>
       <div className={classes.settings__switch}>
         <span>{t('settings.dark')}</span>

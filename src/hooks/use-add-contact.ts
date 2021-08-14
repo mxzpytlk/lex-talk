@@ -3,10 +3,13 @@ import { ExecutionResult, useMutation } from 'react-apollo';
 
 const ADD_CONTACT_MUTATION = loader('../graphql/mutations/add-contact.graphql');
 
-export function useAddContact(): (
-	name: string
-) => Promise<ExecutionResult<{ id: string }> | undefined> {
-  const [addContactMutation] = useMutation<{ id: string }>(ADD_CONTACT_MUTATION);
+type AddContactHookResult = { 
+  addContact: (name: string) => Promise<ExecutionResult<{ id: string; }>>;
+  isLoading: boolean; 
+}
+
+export function useAddContact(): AddContactHookResult {
+  const [addContactMutation, data] = useMutation<{ id: string }>(ADD_CONTACT_MUTATION);
 
   const addContact = async (name: string) => {
     try {
@@ -15,5 +18,5 @@ export function useAddContact(): (
       throw e?.networkError?.result?.errors?.[0] || e;
     }
   };
-  return addContact;
+  return { addContact, isLoading: data.loading };
 }

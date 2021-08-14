@@ -8,6 +8,7 @@ import { IAuth } from '../../core/data/auth-data';
 import { useLogin } from '../../hooks/use-login';
 import { Context } from '../..';
 import { useRegister } from '../../hooks/use-register';
+import ReactLoading from 'react-loading';
 
 export function AuthForm(): JSX.Element {
   const history = useHistory();
@@ -19,8 +20,9 @@ export function AuthForm(): JSX.Element {
 
   const [errMessage, setErrMessage] = useState('');
   const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [{ data: loginData, error: loginError }, login] = useLogin();
+  const [{ data: loginData, error: loginError, loading: isLoginLoading }, login] = useLogin();
   const register = useRegister();
 
   useEffect(() => {
@@ -62,6 +64,7 @@ export function AuthForm(): JSX.Element {
 
   const submit = async (values: IAuth) => {
     let successAuth;
+    setIsLoading(true);
 
     if (isRegisterPage()) {
       let registerData;
@@ -96,9 +99,25 @@ export function AuthForm(): JSX.Element {
       }
     }
 
+    setIsLoading(false);
+
     if (successAuth) {
       store.userStore.auth(successAuth);
     }
+  };
+
+  const SubmitBtn = () => {
+    if (isLoading || isLoginLoading) {
+      return <ReactLoading type='spinningBubbles' width={50} height={50} color='blue'/>;
+    }
+    return (
+      <input
+        type="submit"
+        value={`${t(isRegisterPage() ? 'auth.register' : 'auth.login')}`}
+        className="lt__submit"
+        name="submit"
+      />
+    );
   };
 
   return (
@@ -133,12 +152,7 @@ export function AuthForm(): JSX.Element {
               {t(!isRegisterPage() ? 'auth.register' : 'auth.login')}
             </a>
           </p>
-          <input
-            type="submit"
-            value={`${t(isRegisterPage() ? 'auth.register' : 'auth.login')}`}
-            className="lt__submit"
-            name="submit"
-          />
+          <SubmitBtn />
           {!!errMessage && <span className={classes.auth__err}>{t(errMessage)}</span>}
           {registerSuccess && <span className={classes.auth__success}>{t('auth.success')}</span>}
         </Form>
