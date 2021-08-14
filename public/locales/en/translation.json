@@ -38,7 +38,8 @@
     "add_contact": "add contact",
     "not_exist": "user does not exist",
     "not_add_yourself": "you cannot add yourself to your contact",
-    "no_contacts": "you don't have any contact"
+    "no_contacts": "you don't have any contact",
+    "no_match": "no match found"
   },
   "message": {
     "not": "No message exchanged"
