@@ -12,20 +12,20 @@ type NavigationLinkProps = {
 };
 
 export function NavigationLink(props: NavigationLinkProps): JSX.Element {
-	const { t } = useTranslation();
-	const { pathname } = useLocation();
+  const { t } = useTranslation();
+  const { pathname } = useLocation();
 
-	const isActive = () =>
-		pathname === props.link.path || props.link.possiblePathes?.some((path) => path === pathname);
+  const isActive = () =>
+    pathname === props.link.path || props.link.possiblePathes?.some((path) => path === pathname);
 
-	return (
-		<Link
-			to={props.link.path}
-			className={classNames(classes.link, isActive() ? classes.link__active : classes['link__not-active'])}
-		>
-			{t(props.link.text)}
-			<FontAwesomeIcon icon={props.link.icon} className={classes.link__icon} />
-			<div className={classes.link__border}></div>
-		</Link>
-	);
+  return (
+    <Link
+      to={props.link.path}
+      className={classNames(classes.link, isActive() ? classes.link__active : classes['link__not-active'])}
+    >
+      {t(props.link.text)}
+      <FontAwesomeIcon icon={props.link.icon} className={classes.link__icon} />
+      <div className={classes.link__border}></div>
+    </Link>
+  );
 }

@@ -12,7 +12,7 @@
 }
 
 .app {
-  &-dark {
+  &[data-dark="true"] {
     background-color: $bg-dark;
   }
 }

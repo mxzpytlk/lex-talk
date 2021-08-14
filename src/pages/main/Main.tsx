@@ -9,33 +9,33 @@ import { observer } from 'mobx-react-lite';
 import { AppRouter } from '../../route/AppRouter';
 
 function Main() {
-	const logout = useLogout();
-	const location = useLocation();
-	const { store } = useContext(Context);
+  const logout = useLogout();
+  const location = useLocation();
+  const { store } = useContext(Context);
+  const { userStore, messageStore, configStore} = store;
 
-	useEffect(() => {
-		const { pathname } = location;
-		if (pathname === RouterPath.LOGOUT) {
-			logout().then(() => {
-				store.userStore.setIsAuth(false);
-				store.userStore.setUser(null);
-			});
-		}
-	}, [location.pathname]);
+  useEffect(() => {
+    const { pathname } = location;
+    if (pathname === RouterPath.LOGOUT) {
+      logout().then(() => {
+        messageStore.removeContacts();
+      });
+    }
+  }, [location.pathname]);
 
-	if (!store.userStore.isDetails) {
-		return (
-			<div className={classes.main} data-dark={store.configStore.darkMode}>
-				<Details />
-			</div>
-		);
-	}
+  if (!userStore.isDetails) {
+    return (
+      <div className={classes.main} data-dark={configStore.darkMode}>
+        <Details />
+      </div>
+    );
+  }
 
-	return (
-		<div className={classes.main} data-dark={store.configStore.darkMode}>
-			<AppRouter />
-		</div>
-	);
+  return (
+    <div className={classes.main} data-dark={configStore.darkMode}>
+      <AppRouter />
+    </div>
+  );
 }
 
 export default observer(Main);

@@ -10,23 +10,23 @@ export const DEFAULT_LANG: Language = getFromLocalStorage(LocalStorageKey.LANG) 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (i18n as any)
-	.use(Backend)
-	.use(LanguageDetector)
-	.use(initReactI18next)
-	.init(({
-		fallbackLng: DEFAULT_LANG,
-		debug: false,
-		detection: {
-			order: ['queryString', 'cookie'],
-			cache: ['cookie'],
-		},
-		interpolation: {
-			escapeValue: false,
-		},
-		react: {
-			useSuspense: false,
-			wait: false,
-		},
-	}));
+  .use(Backend)
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init(({
+    fallbackLng: DEFAULT_LANG,
+    debug: false,
+    detection: {
+      order: ['queryString', 'cookie'],
+      cache: ['cookie'],
+    },
+    interpolation: {
+      escapeValue: false,
+    },
+    react: {
+      useSuspense: false,
+      wait: false,
+    },
+  }));
 
 export default i18n;

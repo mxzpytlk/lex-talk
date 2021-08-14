@@ -11,49 +11,49 @@ import { useChangeLang } from './hooks/use-change-lang';
 import { getFromLocalStorage } from './core/utils/local-storage.utils';
 
 function App() {
-	const { store } = useContext(Context);
-	const [isLoading, setIsloading] = useState(true);
-	const changeLang = useChangeLang();
+  const { store } = useContext(Context);
+  const [isLoading, setIsloading] = useState(true);
+  const changeLang = useChangeLang();
 
-	useEffect(() => {
-		if (getFromLocalStorage(LocalStorageKey.TOKEN)) {
-			store.userStore
-				.checkAuth()
-				.then((isAuth) => {
-					isAuth && store.configStore.loadConfig();
-				})
-				.finally(() => {
-					if (store.configStore.lang) {
-						changeLang(store.configStore.lang);
-					}
-					setIsloading(false);
-				});
-		} else {
-			setIsloading(false);
-		}
-	}, []);
+  useEffect(() => {
+    if (getFromLocalStorage(LocalStorageKey.TOKEN)) {
+      store.userStore
+        .checkAuth()
+        .then((isAuth) => {
+          isAuth && store.configStore.loadConfig();
+        })
+        .finally(() => {
+          if (store.configStore.lang) {
+            changeLang(store.configStore.lang);
+          }
+          setIsloading(false);
+        });
+    } else {
+      setIsloading(false);
+    }
+  }, []);
 
-	if (isLoading) {
-		return (
-			<div className={classes.loading} data-dark={store.configStore.darkMode}>
-				<ReactLoading type={'spinningBubbles'} color={'blue'} height={150} width={150} />
-			</div>
-		);
-	}
+  if (isLoading) {
+    return (
+      <div className={classes.loading} data-dark={store.configStore.darkMode}>
+        <ReactLoading type={'spinningBubbles'} color={'blue'} height={150} width={150} />
+      </div>
+    );
+  }
 
-	if (store.userStore.isAuth) {
-		return (
-			<BrowserRouter>
-				<Main />
-			</BrowserRouter>
-		);
-	}
+  if (store.userStore.isAuth) {
+    return (
+      <BrowserRouter>
+        <Main />
+      </BrowserRouter>
+    );
+  }
 
-	return (
-		<div className={classes.app} data-dark={store.configStore.darkMode}>
-			<Auth />
-		</div>
-	);
+  return (
+    <div className={classes.app} data-dark={store.configStore.darkMode}>
+      <Auth />
+    </div>
+  );
 }
 
 export default observer(App);

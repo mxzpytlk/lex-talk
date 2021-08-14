@@ -10,24 +10,24 @@ interface IModal {
 }
 
 function Modal(props: IModal): JSX.Element {
-	const { store } = useContext(Context);
+  const { store } = useContext(Context);
 
-	return (
-		<div className={classes.modal__background} onClick={props.close}>
-			<div
-				className={classes.modal}
-				data-dark={store.configStore.darkMode}
-				onClick={(e) => e.stopPropagation()}
-			>
-				<FontAwesomeIcon
-					icon={['fas', 'times']}
-					className={classes.modal__close}
-					onClick={props.close}
-				/>
-				{props.child}
-			</div>
-		</div>
-	);
+  return (
+    <div className={classes.modal__background} onClick={props.close}>
+      <div
+        className={classes.modal}
+        data-dark={store.configStore.darkMode}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <FontAwesomeIcon
+          icon={['fas', 'times']}
+          className={classes.modal__close}
+          onClick={props.close}
+        />
+        {props.child}
+      </div>
+    </div>
+  );
 }
 
 export default observer(Modal);
