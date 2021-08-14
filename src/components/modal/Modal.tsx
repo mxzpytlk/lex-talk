@@ -5,7 +5,7 @@ import { Context } from '../../';
 import classes from './modal.module.scss';
 
 interface IModal {
-	child: JSX.Element;
+	children: JSX.Element;
 	close: () => void;
 }
 
@@ -24,7 +24,7 @@ function Modal(props: IModal): JSX.Element {
           className={classes.modal__close}
           onClick={props.close}
         />
-        {props.child}
+        {props.children}
       </div>
     </div>
   );

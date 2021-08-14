@@ -25,10 +25,15 @@ export class MessagesStore {
     this.contacts = contacts;
   }
 
+  public getContact(id: string): IContact {
+    return this.contacts.find((contact) => contact.id === id) as IContact;
+  }
+
   public loadContacts = async (): Promise<void> => {
     try {
       const data = await client.query<IContactsQuery>({
-        query: CONTACTS_QUERY
+        query: CONTACTS_QUERY,
+        fetchPolicy: this.contactsLoaded ? 'cache-first' : 'network-only'
       });
       const contacts = data?.data?.contacts;
       if (!contacts) {

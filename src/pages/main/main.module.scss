@@ -5,6 +5,7 @@
   height: 100vh;
   box-sizing: border-box;
   background-color: $background;
+  overflow: hidden;
 
   &[data-dark="true"] {
     background-color: $bg-dark;

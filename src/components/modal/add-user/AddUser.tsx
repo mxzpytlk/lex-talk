@@ -5,6 +5,7 @@ import { GQLError } from '../../../core/data/gql-error';
 import { useAddContact } from '../../../hooks/use-add-contact';
 import { IModal } from '../modal.interface';
 import classes from './add-user.module.scss';
+import classname from 'classnames';
 
 export function AddUser(props: IModal): JSX.Element {
   const [t] = useTranslation();
@@ -43,7 +44,7 @@ export function AddUser(props: IModal): JSX.Element {
         </div>
       )}
       <div>
-        <button onClick={findUser} className="lt__submit">
+        <button onClick={findUser} className={classname('lt__submit', classes.submit)}>
           {t('user.add_contact')}
         </button>
       </div>

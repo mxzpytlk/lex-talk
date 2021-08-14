@@ -28,16 +28,24 @@ function Contacts(): JSX.Element {
     messageStore.loadContacts();
   }, []);
 
-  const AddUserModal = AddUser({
-    close: () => setShowAddUser(false),
-  });
-
   const emptyContactsTranslationKey = () => searchStr ? 'user.no_match' : 'user.no_contacts';
+
+  const ContactsContent = () => {
+    return (contacts?.length > 0 ?
+      contacts.map((contact) => (<ContactItem contact={contact} key={contact.id}/>)) 
+      :
+      <div className={classes.contacts__container}>
+        <span className={classes.contacts__container_text}>{t(emptyContactsTranslationKey())}</span>
+      </div>);
+  };
 
   return (
     <div className={classes.contacts}>
       {showMenu && <Menu onClick={() => setShowMenu(false)}/>}
-      {showAddUser && <Modal child={AddUserModal} close={() => setShowAddUser(false)}/>}
+      {showAddUser && 
+      <Modal close={() => setShowAddUser(false)}>
+        <AddUser close={() => setShowAddUser(false)}/>
+      </Modal>}
       <div className={classes.contacts__search}>
         <input
           type="text"
@@ -62,16 +70,11 @@ function Contacts(): JSX.Element {
           />
         </div>
       </div>
-      {messageStore.contactsLoaded ? contacts?.length > 0 ?
-        contacts.map((contact) => (<ContactItem contact={contact} key={contact.id}/>)) :
-        <div className={classes.contacts__container}>
-          <span className={classes.contacts__container_text}>{t(emptyContactsTranslationKey())}</span>
-        </div> : 
+      {messageStore.contactsLoaded ? ContactsContent() : 
         <div className={classes.contacts__container}>
           <ReactLoading type={'bubbles'} color={'blue'} height={150} width={150} />
         </div>
       }
-				
       <div className={classes.contacts__add} onClick={() => setShowAddUser(true)}>
         <FontAwesomeIcon icon={['fas', 'user-plus']}/>
       </div>

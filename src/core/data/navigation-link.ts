@@ -5,7 +5,7 @@ export interface INavigationLink {
   needAuth: boolean;
   text: string;
   path: RouterPath | string;
-  icon: IconProp
+  icon: IconProp;
   possiblePathes?: RouterPath[];
 }
 
@@ -26,7 +26,7 @@ export const links: INavigationLink[] = [
   {
     needAuth: true,
     text: 'common.chat',
-    path: RouterPath.CHAT,
+    path: RouterPath.CHAT_REDIRECT,
     icon: ['fas', 'comment-alt'],
   },
   {
@@ -38,7 +38,7 @@ export const links: INavigationLink[] = [
   {
     needAuth: true,
     text: 'auth.log_out',
-    path: '/logout',
+    path: RouterPath.LOGOUT,
     icon: ['fas', 'sign-out-alt'],
   },
 ];

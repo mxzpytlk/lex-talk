@@ -51,7 +51,8 @@ export class LexTalkConfigStore implements ILexTalkConfig {
 
   public loadConfig = async (): Promise<void> => {
     const config = await client.query<IConfigQuery>({
-      query: CONFIG_QUERY
+      query: CONFIG_QUERY,
+      fetchPolicy: 'network-only'
     });
     if (!config.data?.getConfig) {
       return;

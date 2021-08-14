@@ -12,36 +12,37 @@ import { getFromLocalStorage } from './core/utils/local-storage.utils';
 
 function App() {
   const { store } = useContext(Context);
+  const { configStore, userStore } = store;
   const [isLoading, setIsloading] = useState(true);
   const changeLang = useChangeLang();
 
   useEffect(() => {
     if (getFromLocalStorage(LocalStorageKey.TOKEN)) {
-      store.userStore
-        .checkAuth()
-        .then((isAuth) => {
-          isAuth && store.configStore.loadConfig();
-        })
-        .finally(() => {
-          if (store.configStore.lang) {
-            changeLang(store.configStore.lang);
-          }
-          setIsloading(false);
-        });
+      store.userStore.checkAuth();
     } else {
       setIsloading(false);
     }
   }, []);
 
+  useEffect(() => {
+    if (userStore.isAuth) {
+      configStore.loadConfig()
+        .finally(() => {
+          changeLang(configStore.lang);
+          setIsloading(false);
+        });
+    }
+  }, [userStore.isAuth]);
+
   if (isLoading) {
     return (
-      <div className={classes.loading} data-dark={store.configStore.darkMode}>
+      <div className={classes.loading} data-dark={configStore.darkMode}>
         <ReactLoading type={'spinningBubbles'} color={'blue'} height={150} width={150} />
       </div>
     );
   }
 
-  if (store.userStore.isAuth) {
+  if (userStore.isAuth) {
     return (
       <BrowserRouter>
         <Main />
@@ -50,7 +51,7 @@ function App() {
   }
 
   return (
-    <div className={classes.app} data-dark={store.configStore.darkMode}>
+    <div className={classes.app} data-dark={configStore.darkMode}>
       <Auth />
     </div>
   );

@@ -8,6 +8,9 @@ export function useChangeLang(): (lang: Language) => void {
   const { store } = useContext(Context);
 
   return (lang: Language) => {
+    if (!lang) {
+      return;
+    }
     i18n.changeLanguage(lang);
     store.configStore.setLang(lang);
   };

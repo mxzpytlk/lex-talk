@@ -1,0 +1,51 @@
+$avatar-size: 160px;
+
+.title {
+  margin-top: 4px;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+
+.hr {
+  margin: 1rem 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 20px;
+  margin-right: 5%;
+
+  &__avatar {
+    height: $avatar-size;
+    width: $avatar-size;
+    background-size: cover;
+    border-radius: 50%;
+  }
+
+  &__details {
+    margin-bottom: .5rem;
+    font-size: 1.25rem;
+    max-width: 100%;
+    overflow-x: hidden;
+    text-align: center;
+
+    &:not(:last-child) {
+      margin-top: 1.5rem;
+    }
+
+    &_title {
+      text-transform: capitalize;
+
+      &::after {
+        content: ": ";
+      }
+    }
+
+    &_text {
+      font-weight: 300;
+      word-wrap: break-word;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 query {
   contacts {
-    id name avatar lastMessage
+    id name avatar about lastMessage
   }
 }

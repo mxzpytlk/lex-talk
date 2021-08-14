@@ -1,15 +1,14 @@
-import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { RouterPath } from '../core/enums/router-path';
-import { routes } from './routes';
+import { appRoutes } from './routes';
 
 export function AppRouter(): JSX.Element {
   return (
     <Switch>
-      {routes.map(({ path, Component }) => (
+      {appRoutes.map(({ path, Component }) => (
         <Route path={path} component={Component} exact key={path} />
       ))}
-      <Redirect to={RouterPath.CHAT} />
+      <Redirect to={RouterPath.CHAT_REDIRECT} />
     </Switch>
   );
 }

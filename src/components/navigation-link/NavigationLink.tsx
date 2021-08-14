@@ -16,7 +16,7 @@ export function NavigationLink(props: NavigationLinkProps): JSX.Element {
   const { pathname } = useLocation();
 
   const isActive = () =>
-    pathname === props.link.path || props.link.possiblePathes?.some((path) => path === pathname);
+    pathname.startsWith(props.link.path.replace('*', '')) || props.link.possiblePathes?.some((path) => path === pathname);
 
   return (
     <Link
