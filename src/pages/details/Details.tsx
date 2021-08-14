@@ -30,7 +30,6 @@ function Details(): JSX.Element {
   const onImgChange = (_file: File | null | undefined, blob: Blob | undefined) => {
     setBlob(blob);
     blob && updateAvatar(blob);
-    // store.userStore.user
   };
 
   const validate = (data: IFormData) => {

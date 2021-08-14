@@ -1,7 +1,6 @@
 @import '../../style/variables/color';
 
 $margin-side: 12px;
-$avatar-size: 50px;
 
 .container {
   margin: 6px $margin-side;
@@ -18,10 +17,6 @@ $avatar-size: 50px;
 }
 
 .avatar {
-  width: $avatar-size;
-  height: $avatar-size;
-  background-size: cover;
-  border-radius: 50%;
   flex-shrink: 0;
 }
 

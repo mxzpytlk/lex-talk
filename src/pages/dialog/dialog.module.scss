@@ -1,7 +1,5 @@
 @import '../../style/variables/color';
 
-$avatar-size: 40px;
-
 .container {
   height: 100vh;
   animation: appear .2s ease-in-out;
@@ -32,10 +30,6 @@ $avatar-size: 40px;
   cursor: pointer;
 
   &__avatar {
-    width: $avatar-size;
-    height: $avatar-size;
-    background-size: cover;
-    border-radius: 50%;
     margin-right: .5rem;
   }
 

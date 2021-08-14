@@ -6,12 +6,13 @@ import classes from './settings.module.scss';
 import { observer } from 'mobx-react-lite';
 import Switch from 'react-switch';
 import ImageChooser from '../../components/image-chooser/ImageChooser';
-import { getImgUrl, updateAvatar } from '../../core/utils/image.utils';
+import { updateAvatar } from '../../core/utils/image.utils';
 import { loader } from 'graphql.macro';
 import { useMutation } from 'react-apollo';
 import { Language } from '../../core/enums/languages';
 import { useChangeLang } from '../../hooks/use-change-lang';
 import classnames from 'classnames';
+import { LoadedImage } from '../../components/loaded-image/LoadedImage';
 
 const UPDATE_USER = loader('../../graphql/mutations/update-user.graphql');
 
@@ -19,15 +20,12 @@ function Settings() {
   const [t] = useTranslation();
   const changeLangHook = useChangeLang();
   const { store } = useContext(Context);
+  const { userStore } = store;
   const [updateUser] = useMutation(UPDATE_USER);
 
   const [aboutValue, setAboutValue] = useState(store.userStore.user?.about as string);
   const [imgChooserOpen, setImgChooserOpen] = useState(false);
-  const [imgSrc, setImgSrc] = useState(getImgUrl(store.userStore?.user?.avatar as string));
-  
-  const pictureStyle = {
-    backgroundImage: `url(${imgSrc})`,
-  };
+  const [imgSrc, setImgSrc] = useState<string>();
 
   const onImgChange = async (_file: File | null | undefined, blob: Blob | undefined) => {
     if (blob) {
@@ -57,6 +55,20 @@ function Settings() {
 
   const checkLang = (lang: Language) => lang === store.configStore.lang;
 
+  const UserAvatar = () => (
+    <LoadedImage
+      id={userStore.user?.avatar as string}
+      size={240}
+      onClick={() => setImgChooserOpen(true)}
+      className={classes.settings__img_container}
+      src={imgSrc}
+    >
+      <div className={classes.settings__img_hover}>
+        {t('settings.change_image')}
+      </div>
+    </LoadedImage>
+  );
+
   return (
     <div className={classes.settings}>
       <Navbar />
@@ -65,11 +77,7 @@ function Settings() {
       {imgChooserOpen ? 
         <ImageChooser onImgChange={onImgChange}/>
         :
-        <div className={classes.settings__img_container} style={pictureStyle} onClick={() => setImgChooserOpen(true)}>
-          <div className={classes.settings__img_hover}>
-            {t('settings.change_image')}
-          </div>
-        </div>
+        <UserAvatar />
       }
       <div className={classes.settings__about}>
         <input

@@ -9,6 +9,7 @@ import { findHrefParam } from '../../core/utils/navigation.utils';
 import { getImgUrl } from '../../core/utils/image.utils';
 import Modal from '../../components/modal/Modal';
 import { UserProfile } from '../../components/modal/user-profile/UserProfile';
+import { LoadedImage } from '../../components/loaded-image/LoadedImage';
 
 function Dialog(): JSX.Element {
   const { store } = useContext(Context);
@@ -32,6 +33,7 @@ function Dialog(): JSX.Element {
         </Link>
         <div className={classes.companion} onClick={() => setUserProfileOpen(true)}>
           <div style={avatarStyle} className={classes.companion__avatar}></div>
+          <LoadedImage size={40} id={contact?.avatar} className={classes.companion__avatar} loadingColor="white"/>
           <span className={classes.companion__name}>{contact?.name}</span>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { IContact } from '../../../core/data/contact-data';
-import { getImgUrl } from '../../../core/utils/image.utils';
+import { LoadedImage } from '../../loaded-image/LoadedImage';
 import classes from './user-profile.module.scss';
 
 interface IProfileProps {
@@ -9,16 +9,13 @@ interface IProfileProps {
 
 export function UserProfile({ contact }: IProfileProps): JSX.Element {
   const [t] = useTranslation();
-  const avatarStyle = {
-    backgroundImage: `url(${getImgUrl(contact?.avatar)})`,
-  };
 
   return (
     <div className={classes.container}>
       <h4 className={classes.title}>{t('user.profile')}</h4>
       <hr className={classes.hr}/>
       <div className={classes.info}>
-        <div style={avatarStyle} className={classes.info__avatar}></div>
+        <LoadedImage size={160} id={contact.avatar} className={classes.info__avatar}/>
         <h5 className={classes.info__details}>
           <span className={classes.info__details_title}>{t('common.username')}</span>
           <span className={classes.info__details_text}>{contact.name}</span>
