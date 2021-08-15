@@ -10,6 +10,8 @@ import {
   faTimes,
   faExclamation,
   faArrowLeft,
+  faPaperclip,
+  faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -23,4 +25,6 @@ library.add(
   faTimes,
   faExclamation,
   faArrowLeft,
+  faPaperclip,
+  faPaperPlane,
 );

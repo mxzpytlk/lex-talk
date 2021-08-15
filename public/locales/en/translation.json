@@ -43,6 +43,7 @@
     "profile": "user profile"
   },
   "message": {
-    "not": "No message exchanged"
+    "not": "No message exchanged",
+    "type": "type your message"
   }
 }

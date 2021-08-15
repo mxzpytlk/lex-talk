@@ -10,6 +10,7 @@ import { getImgUrl } from '../../core/utils/image.utils';
 import Modal from '../../components/modal/Modal';
 import { UserProfile } from '../../components/modal/user-profile/UserProfile';
 import { LoadedImage } from '../../components/loaded-image/LoadedImage';
+import { DialogInput } from '../../components/dialog-input/DialogInput';
 
 function Dialog(): JSX.Element {
   const { store } = useContext(Context);
@@ -37,6 +38,7 @@ function Dialog(): JSX.Element {
           <span className={classes.companion__name}>{contact?.name}</span>
         </div>
       </div>
+      <DialogInput contactId={contact.id} />
     </div>
   );
 }
