@@ -17,8 +17,8 @@ export class MessagesStore {
     makeAutoObservable(this);
   }
 
-  public addContacts(contacts: IContact[]): void {
-    this.contacts.push(...contacts);
+  public addContacts(...contacts: IContact[]): void {
+    this.setContacts([...this.contacts, ...contacts]);
   }
 
   public setContacts(contacts: IContact[]): void {

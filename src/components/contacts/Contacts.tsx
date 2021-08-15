@@ -5,7 +5,7 @@ import classes from './contacts.module.scss';
 import classNames from 'classnames';
 import { Menu } from '../menu/Menu';
 import Modal from '../modal/Modal';
-import { AddUser } from '../modal/add-user/AddUser';
+import AddUser from '../modal/add-user/AddUser';
 import { Context } from '../../';
 import { observer } from 'mobx-react-lite';
 import ReactLoading from 'react-loading';

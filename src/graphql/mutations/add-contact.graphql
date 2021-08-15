@@ -1,5 +1,5 @@
 mutation ($name: String!) {
   addContact(name: $name) {
-    id
+    id about avatar
   }
 }

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GQLError } from '../../../core/data/gql-error';
 import { useAddContact } from '../../../hooks/use-add-contact';
@@ -7,16 +7,26 @@ import { IModal } from '../modal.interface';
 import classes from './add-user.module.scss';
 import classname from 'classnames';
 import ReactLoading from 'react-loading';
+import { Context } from '../../../';
+import { observer } from 'mobx-react-lite';
 
-export function AddUser(props: IModal): JSX.Element {
+function AddUser(props: IModal): JSX.Element {
   const [t] = useTranslation();
   const [contactName, setContactName] = useState('');
   const [errMessage, setErrMessage] = useState('');
+  const { store: { messageStore } } = useContext(Context);
   const { addContact, isLoading } = useAddContact();
 
   const findUser = async () => {
     try {
-      await addContact(contactName);
+      const res = await addContact(contactName);
+      const newContact = res.data?.addContact;
+
+      if (newContact) {
+        newContact.name = contactName;
+        messageStore.addContacts(newContact);
+      }
+
       setErrMessage('');
       props.close();
     } catch (e) {
@@ -55,3 +65,5 @@ export function AddUser(props: IModal): JSX.Element {
     </div>
   );
 }
+
+export default observer(AddUser);
