@@ -1,7 +1,7 @@
 import ScreenConverter, { IPoint } from './geometry.utils';
 import { canvastoFile, EImageType } from 'image-conversion';
 import config from '../../assets/config.json';
-import { getAuthHeader, updateAvatarUrl } from './api.utils';
+import { getAuthHeader, sendImgUrl, updateAvatarUrl } from './api.utils';
 
 export function cutImage(
   img: HTMLImageElement,
@@ -67,6 +67,18 @@ export function getImgUrl(imgId: string): string {
 
 export async function updateAvatar(img: Blob): Promise<string> {
   const res = await fetch(updateAvatarUrl(), {
+    method: 'POST',
+    body: img,
+    headers: {
+      authorization: getAuthHeader(),
+    },
+  });
+  const imgId = await res.text();
+  return imgId.replaceAll('"', '');
+}
+
+export async function sendImg(img: File, contactId: string): Promise<string> {
+  const res = await fetch(sendImgUrl(contactId), {
     method: 'POST',
     body: img,
     headers: {

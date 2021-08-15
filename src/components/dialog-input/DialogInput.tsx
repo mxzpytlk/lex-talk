@@ -5,6 +5,7 @@ import { capitalize } from '../../core/utils/string.utils';
 import classes from './dialog-input.module.scss';
 import { loader } from 'graphql.macro';
 import { useMutation } from 'react-apollo';
+import { sendImg } from '../../core/utils/image.utils';
 
 interface IDialogInputProps {
 	contactId: string;
@@ -28,6 +29,11 @@ export function DialogInput({ contactId }: IDialogInputProps): JSX.Element {
     setText('');
   };
 
+  const sendImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] as File;
+    await sendImg(file, contactId);
+  };
+
   return (
     <div className={classes.container}>
       <input
@@ -38,7 +44,14 @@ export function DialogInput({ contactId }: IDialogInputProps): JSX.Element {
         placeholder={capitalize(t('message.type'))}
       />
       <div onClick={() => fileInput.current?.click()} className={classes.paperclip__container}>
-        <input ref={fileInput} type="file" className={classes.paperclip__file} />
+        <input
+          ref={fileInput}
+          type="file"
+          className={classes.paperclip__file}
+          onChange={sendImage}
+          multiple={false}
+          accept=".jpeg, .png, .jpg"
+        />
         <FontAwesomeIcon icon={['fas', 'paperclip']} className={classes.paperclip} />
       </div>
       <div className={classes.send} onClick={sendMessage}>

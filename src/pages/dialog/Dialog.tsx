@@ -38,7 +38,7 @@ function Dialog(): JSX.Element {
           <span className={classes.companion__name}>{contact?.name}</span>
         </div>
       </div>
-      <DialogInput contactId={contact.id} />
+      <DialogInput contactId={contact?.id} />
     </div>
   );
 }
