@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { RouterPath } from '../../core/enums/router-path';
 import classes from './dialog.module.scss';

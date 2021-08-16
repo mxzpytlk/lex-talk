@@ -1,12 +1,12 @@
 import { loader } from 'graphql.macro';
 import { makeAutoObservable } from 'mobx';
-import { IContact } from '../../core/data/contact-data';
+import { ContactData, IContact, IContactGQL } from '../../core/data/contact-data';
 import { client } from '../../graphql/';
 
 
 const CONTACTS_QUERY = loader('../../graphql/queries/contacts.graphql');
 interface IContactsQuery {
-  contacts: IContact[];
+  contacts: IContactGQL[];
 }
 
 export class MessagesStore {
@@ -35,7 +35,7 @@ export class MessagesStore {
         query: CONTACTS_QUERY,
         fetchPolicy: this.contactsLoaded ? 'cache-first' : 'network-only'
       });
-      const contacts = data?.data?.contacts;
+      const contacts = data?.data?.contacts?.map((contact) => new ContactData(contact));
       if (!contacts) {
         return;
       }

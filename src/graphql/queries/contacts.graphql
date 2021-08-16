@@ -1,5 +1,5 @@
 query {
   contacts {
-    id name avatar about lastMessage
+    id name avatar about lastMessage { text file dateTime }
   }
 }

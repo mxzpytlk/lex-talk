@@ -32,6 +32,12 @@ $margin-side: 12px;
     text-overflow: ellipsis;
   }
 
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__name {
     font-weight: 700;
     font-size: 1.25rem;
@@ -39,6 +45,12 @@ $margin-side: 12px;
 
   &__message {
     color: $text-muted;
+  }
+
+  &__date {
+    margin-left: auto;
+    color: $text-muted;
+    flex-shrink: 0;
   }
 }
 
