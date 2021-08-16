@@ -22,16 +22,19 @@ const logoutLink = onError((data) => {
 
   if (error?.extensions?.code === 'UNAUTHENTICATED') {
     operation.query = REFRESH_QUERY;
+    operation.variables = {};
     const res = forward(operation);
     res
       .subscribe((data) => {
-        console.log('HERE');
         if (data.data?.refresh) {
           AuthService.auth(data.data?.refresh);
         } else {
           localStorage.removeItem(LocalStorageKey.TOKEN);
         }
-      })
+      },
+      (error) => console.log({...error}),
+      () => console.log('complete')
+      )
       .unsubscribe();
     return res;
   }

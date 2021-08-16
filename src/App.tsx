@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     if (getFromLocalStorage(LocalStorageKey.TOKEN)) {
-      store.userStore.checkAuth();
+      store.userStore.checkAuth().then(() => setIsloading(false));
     } else {
       setIsloading(false);
     }

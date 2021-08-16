@@ -3,9 +3,24 @@ import { makeAutoObservable } from 'mobx';
 import { IAuthSuccess, IRefreshQuery } from '../../core/data/auth-data';
 import { IUser } from '../../core/data/user-data';
 import { AuthService } from '../../service/auth.service';
-import { client } from '../../graphql/';
+import { SERVER_URL } from '../../graphql/';
+import { createUploadLink } from 'apollo-upload-client';
+import { ApolloClient, InMemoryCache, from } from 'apollo-boost';
+import { authMiddleware } from '../../middleware/auth.middlewre';
+import { LocalStorageKey } from '../../core/enums/local-storage-key';
 
 const REFRESH_QUERY = loader('../../graphql/queries/refresh.graphql');
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const httpLink: any = createUploadLink({
+  uri: `${SERVER_URL}/graphql`,
+  credentials: 'include',
+});
+
+const refreshClient = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: from([authMiddleware, httpLink]),
+});
 
 export class UserStore {
   public user!: IUser | null;
@@ -41,14 +56,22 @@ export class UserStore {
 
   public async checkAuth(): Promise<boolean> {
     try {
-      const res = await client.query<IRefreshQuery>({
+      const res = await refreshClient.query<IRefreshQuery>({
         query: REFRESH_QUERY
       });
       if (res.data?.refresh) {
         this.auth(res?.data?.refresh);
       }
     // eslint-disable-next-line no-empty
-    } catch (e) { }
+    } catch (e) { 
+      const error = e.graphQLErrors?.[0];
+      const code = error?.extensions?.code;
+      if (code === 'UNAUTHENTICATED') {
+        this.setIsAuth(false);
+        this.setUser(null);
+        localStorage.removeItem(LocalStorageKey.TOKEN);
+      }
+    }
     return !!this.user;
   }
 }
