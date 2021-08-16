@@ -1,0 +1,5 @@
+query($contactId: ID!) {
+  messages(contactId: $contactId) {
+    text file dateTime messageType
+  }
+}
