@@ -1,0 +1,57 @@
+@import '../../style/variables/color';
+
+.message {
+  padding: 8px 16px;
+  margin: 6px;
+  border-radius: 8px;
+  max-width: 35%;
+
+  &__img {
+    max-width: 100%;
+    cursor: pointer;
+  }
+
+  &__current {
+    align-self: flex-end;
+    background-color: $primary;
+    border-bottom-right-radius: 0;
+    -webkit-filter: saturate(.6);
+    filter: saturate(.6);
+    box-shadow: 0 0 4px 0 $primary;
+    animation: send .2s ease-in-out;
+    color: white;
+  }
+
+  &__another {
+    align-self: flex-start;
+    background-color: white;
+    border-bottom-left-radius: 0;
+    box-shadow: 0 0 4px 0 rgb(0 0 0 / 75%);
+    animation: receive .2s ease-in-out;
+
+    &[data-dark="true"] {
+      color: white;
+      background-color: $light-dark;
+    }
+  }
+}
+
+@keyframes receive {
+  from {
+    transform: translate(-100%) scale(0);
+  }
+
+  to {
+    transform: translate(0) scale(1);
+  }
+}
+
+@keyframes send {
+  from {
+    transform: translate(100%) scale(0);
+  }
+
+  to {
+    transform: translate(0) scale(1);
+  }
+}

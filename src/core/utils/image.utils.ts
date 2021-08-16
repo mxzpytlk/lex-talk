@@ -78,9 +78,11 @@ export async function updateAvatar(img: Blob): Promise<string> {
 }
 
 export async function sendImg(img: File, contactId: string): Promise<string> {
+  const data = new FormData();
+  data.append('file', img);
   const res = await fetch(sendImgUrl(contactId), {
     method: 'POST',
-    body: img,
+    body: data,
     headers: {
       authorization: getAuthHeader(),
     },

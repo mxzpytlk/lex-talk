@@ -28,7 +28,7 @@ export function ContactItem(props: IContactItemProps): JSX.Element {
   };
 
   const Message = () => {
-    if (lastMessage.type === MessageType.FILE) {
+    if (lastMessage?.type === MessageType.FILE) {
       return (
         <span className={classes.info__message}>
           <FontAwesomeIcon icon={['fas', 'image']} />
@@ -50,7 +50,7 @@ export function ContactItem(props: IContactItemProps): JSX.Element {
       <div className={classes.info}>
         <div className={classes.info__container}>
           <span className={classes.info__name}>{contact.name}</span>
-          {contact.lastMessage.dateTime && (
+          {contact.lastMessage?.dateTime && (
             <span className={classes.info__date}>
               {dateToString(contact.lastMessage?.dateTime)}
             </span>

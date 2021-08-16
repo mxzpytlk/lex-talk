@@ -30,6 +30,7 @@ $margin-side: 12px;
   & * {
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__container {

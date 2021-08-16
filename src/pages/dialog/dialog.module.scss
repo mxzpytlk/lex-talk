@@ -8,6 +8,11 @@
   flex-direction: column;
 }
 
+.messages {
+  padding: 8px 4px;
+  overflow: auto;
+}
+
 @keyframes appear {
   from {
     transform: translateX(100%);

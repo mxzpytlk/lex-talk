@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.date {
+  align-self: center;
+  background-color: gray;
+  color: white;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 8px;
+  animation: zoom-out .2s ease-in-out;
+}
+
+@keyframes zoom-out {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}

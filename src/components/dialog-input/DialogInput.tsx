@@ -30,8 +30,10 @@ export function DialogInput({ contactId }: IDialogInputProps): JSX.Element {
   };
 
   const sendImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] as File;
-    await sendImg(file, contactId);
+    const file = e.target.files?.[0];
+    if (file) {
+      await sendImg(file, contactId);
+    }
   };
 
   return (

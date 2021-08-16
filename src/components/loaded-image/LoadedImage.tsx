@@ -13,6 +13,7 @@ interface ILoadImgProps {
   children?: JSX.Element;
   className?: string;
   loadingColor?: string;
+  isImgTag?: boolean;
 }
 
 export function LoadedImage(props: ILoadImgProps): JSX.Element {
@@ -31,15 +32,27 @@ export function LoadedImage(props: ILoadImgProps): JSX.Element {
     }
   }, [props.src, props.id]);
 
+  const size = props.isImgTag ? 'auto' : `${props.size}px`;
+
   const pictureStyle = {
-    backgroundImage: `url(${imgSrc})`,
-    width: `${props.size}px`,
-    height: `${props.size}px`,
+    backgroundImage: !props.isImgTag && `url(${imgSrc})`,
+    width: size,
+    height: size,
     borderRadius: '50%',
     ...props.style
   };
 
   if (imgSrc) {
+    if (props.isImgTag) {
+      return (
+        <img src={imgSrc}
+          alt=""className={classnames(classes.img, props.className)}
+          style={pictureStyle}
+          onClick={(e) => props.onClick?.(e)}
+        />
+      );
+    }
+
     return (
       <div
         className={classnames(classes.img, props.className)}
