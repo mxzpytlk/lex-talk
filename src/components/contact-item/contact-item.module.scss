@@ -45,6 +45,11 @@ $margin-side: 12px;
 
   &__message {
     color: $text-muted;
+
+    &_image {
+      text-transform: capitalize;
+      margin-left: 2px;
+    }
   }
 
   &__date {

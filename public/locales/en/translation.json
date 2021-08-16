@@ -6,7 +6,8 @@
     "select": "Select",
     "submit": "Submit",
     "settings": "Settings",
-    "update": "Update"
+    "update": "Update",
+    "image": "image"
   },
   "auth": {
     "log_in": "Log In",

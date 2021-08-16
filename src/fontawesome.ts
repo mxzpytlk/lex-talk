@@ -12,6 +12,7 @@ import {
   faArrowLeft,
   faPaperclip,
   faPaperPlane,
+  faImage,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -27,4 +28,5 @@ library.add(
   faArrowLeft,
   faPaperclip,
   faPaperPlane,
+  faImage,
 );
