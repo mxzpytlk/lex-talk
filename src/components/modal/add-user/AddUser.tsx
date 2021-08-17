@@ -3,18 +3,17 @@ import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GQLError } from '../../../core/data/gql-error';
 import { useAddContact } from '../../../hooks/use-add-contact';
-import { IModal } from '../modal.interface';
 import classes from './add-user.module.scss';
 import classname from 'classnames';
 import ReactLoading from 'react-loading';
 import { Context } from '../../../';
 import { observer } from 'mobx-react-lite';
 
-function AddUser(props: IModal): JSX.Element {
+function AddUser(): JSX.Element {
   const [t] = useTranslation();
   const [contactName, setContactName] = useState('');
   const [errMessage, setErrMessage] = useState('');
-  const { store: { messageStore } } = useContext(Context);
+  const { store: { messageStore, modalStore } } = useContext(Context);
   const { addContact, isLoading } = useAddContact();
 
   const findUser = async () => {
@@ -28,7 +27,7 @@ function AddUser(props: IModal): JSX.Element {
       }
 
       setErrMessage('');
-      props.close();
+      modalStore.close();
     } catch (e) {
       const err = new GQLError(e);
       setErrMessage(err.message);

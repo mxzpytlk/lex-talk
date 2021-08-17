@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import classes from './contacts.module.scss';
 import classNames from 'classnames';
 import { Menu } from '../menu/Menu';
-import Modal from '../modal/Modal';
 import AddUser from '../modal/add-user/AddUser';
 import { Context } from '../../';
 import { observer } from 'mobx-react-lite';
@@ -15,9 +14,8 @@ import { includesCaseInsensitive } from '../../core/utils/string.utils';
 function Contacts(): JSX.Element {
   const [t] = useTranslation();
   const [showMenu, setShowMenu] = useState(false);
-  const [showAddUser, setShowAddUser] = useState(false);
   const [searchStr, setSearchStr] = useState('');
-  const { messageStore } = useContext(Context).store;
+  const { store: { messageStore, modalStore } } = useContext(Context);
   const contacts = 
     useMemo(
       () => messageStore.contacts.filter((contact) => includesCaseInsensitive(contact.name, searchStr)),
@@ -39,13 +37,13 @@ function Contacts(): JSX.Element {
       </div>);
   };
 
+  const openAddUser = () => {
+    modalStore.open(<AddUser />);
+  };
+
   return (
     <div className={classes.contacts}>
       {showMenu && <Menu onClick={() => setShowMenu(false)}/>}
-      {showAddUser && 
-      <Modal close={() => setShowAddUser(false)}>
-        <AddUser close={() => setShowAddUser(false)}/>
-      </Modal>}
       <div className={classes.contacts__search}>
         <input
           type="text"
@@ -75,7 +73,7 @@ function Contacts(): JSX.Element {
           <ReactLoading type={'bubbles'} color={'blue'} height={150} width={150} />
         </div>
       }
-      <div className={classes.contacts__add} onClick={() => setShowAddUser(true)}>
+      <div className={classes.contacts__add} onClick={openAddUser}>
         <FontAwesomeIcon icon={['fas', 'user-plus']}/>
       </div>
     </div>

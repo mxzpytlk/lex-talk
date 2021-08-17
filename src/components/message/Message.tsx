@@ -1,10 +1,9 @@
 import { IMessage, MessageType } from '../../core/data/message';
 import classes from './message.module.scss';
 import { Context } from '../../';
-import { useContext, useMemo, useState } from 'react';
+import { useContext, useMemo } from 'react';
 import classnames from 'classnames';
 import { LoadedImage } from '../loaded-image/LoadedImage';
-import Modal from '../modal/Modal';
 import { ImageModal } from '../modal/image-modal/ImageModal';
 
 interface IMessageProps {
@@ -13,12 +12,15 @@ interface IMessageProps {
 
 export function Message({ message }: IMessageProps): JSX.Element {
   const {
-    store: { userStore, configStore },
+    store: { userStore, configStore, modalStore },
   } = useContext(Context);
-  const [isImgOpen, setIsImgOpen] = useState(false);
   const fromCurrentUser = useMemo(() => userStore.user.id === message.sender, [userStore.user]);
   const imgStyle = {
     borderRadius: '0',
+  };
+
+  const openImg = () => {
+    modalStore.open(<ImageModal photo={message} />);
   };
 
   return (
@@ -29,11 +31,6 @@ export function Message({ message }: IMessageProps): JSX.Element {
       )}
       data-dark={configStore.darkMode}
     >
-      {isImgOpen && (
-        <Modal close={() => setIsImgOpen(false)}>
-          <ImageModal photo={message} />
-        </Modal>
-      )}
       {message.type === MessageType.TEXT && message.text}
       {message.type === MessageType.FILE && (
         <LoadedImage
@@ -42,7 +39,7 @@ export function Message({ message }: IMessageProps): JSX.Element {
           id={message.file}
           size={100}
           isImgTag={true}
-          onClick={() => setIsImgOpen(true)}
+          onClick={openImg}
         />
       )}
     </div>

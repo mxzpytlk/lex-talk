@@ -7,12 +7,14 @@ import { useContext, useEffect } from 'react';
 import { RouterPath } from '../../core/enums/router-path';
 import { observer } from 'mobx-react-lite';
 import { AppRouter } from '../../route/AppRouter';
+import Modal from '../../components/modal/Modal';
 
 function Main() {
   const logout = useLogout();
   const location = useLocation();
-  const { store } = useContext(Context);
-  const { userStore, messageStore, configStore} = store;
+  const {
+    store: { userStore, messageStore, configStore, modalStore },
+  } = useContext(Context);
 
   useEffect(() => {
     const { pathname } = location;
@@ -33,6 +35,7 @@ function Main() {
 
   return (
     <div className={classes.main} data-dark={configStore.darkMode}>
+      {modalStore.isOpen && <Modal close={() => modalStore.close()}>{modalStore.child}</Modal>}
       <AppRouter />
     </div>
   );
