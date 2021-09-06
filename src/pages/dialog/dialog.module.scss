@@ -11,6 +11,19 @@
 .messages {
   padding: 8px 4px;
   overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 2px;
+  }
 }
 
 @keyframes appear {

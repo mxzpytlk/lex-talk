@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { RouterPath } from '../../core/enums/router-path';
 import classes from './dialog.module.scss';
@@ -10,7 +10,10 @@ import { DialogHeader } from '../../components/dialog-header/DialogHeader';
 import { MessagesBlock } from '../../components/messages-block/MessagesBlock';
 
 function Dialog(): JSX.Element {
-  const { store: { messageStore } } = useContext(Context);
+  const scrollableElement = useRef<HTMLDivElement>();
+  const {
+    store: { messageStore },
+  } = useContext(Context);
   const location = useLocation();
   const contact = useMemo(
     () => messageStore.getContact(findHrefParam(location.pathname, RouterPath.DIALOG, 'id')),
@@ -25,11 +28,20 @@ function Dialog(): JSX.Element {
 
   const blocks = useMemo(() => messageStore.getMessageBlocks(), [messageStore.messages]);
 
+  useEffect(() => {
+    const current = scrollableElement.current;
+    if (messageStore.messages?.length > 0) {
+      current.scrollTop = current.scrollHeight;
+    }
+  }, [messageStore.messages, location]);
+
   return (
     <div className={classes.container}>
       <DialogHeader contact={contact} />
-      <div className={classes.messages} >
-        {blocks.map((block) => <MessagesBlock block={block} key={block.date.toDateString()} />)}
+      <div className={classes.messages} ref={scrollableElement}>
+        {blocks.map((block) => (
+          <MessagesBlock block={block} key={block.date.toDateString()} />
+        ))}
       </div>
       <DialogInput contactId={contact?.id} />
     </div>
