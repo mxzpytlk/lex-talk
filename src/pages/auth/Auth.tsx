@@ -6,7 +6,7 @@ import { AuthForm } from '../../components/auth-form/AuthForm';
 
 export default function Auth(): JSX.Element {
   return (
-    <div className={classes.classes}>
+    <div className={classes.auth}>
       <Navbar />
       <div className={classes.auth__container}>
         <img className={classes.auth__animated} src={animatedLogo} alt="Animated logo" />

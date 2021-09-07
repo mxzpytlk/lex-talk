@@ -46,35 +46,6 @@ $add-btn-size: 40px;
     }
   }
 
-  &__toggler {
-    display: flex;
-    flex-direction: column;
-    padding: 1px 6px;
-    position: relative;
-    bottom: -2px;
-    margin-left: 4px;
-    cursor: pointer;
-
-    &_line {
-      width: 28px;
-      height: 2px;
-      background-color: white;
-      margin-bottom: 6px;
-
-      &-top {
-        transform: rotate(45deg) translateY(6px);
-      }
-
-      &-center {
-        display: none;
-      }
-
-      &-bottom {
-        transform: rotate(-45deg) translateY(-6px);
-      }
-    }
-  }
-
   &__container {
     width: 100%;
     flex-grow: 1;

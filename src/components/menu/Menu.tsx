@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import classes from './menu.module.scss';
 import classnames from 'classnames';
 import logo from '../../assets/logo.svg';
-import { links } from '../../core/data/navigation-link';
+import { INavigationLink, links } from '../../core/data/navigation-link';
 import { NavigationLink } from '../navigation-link/NavigationLink';
 import { Context } from '../../';
 
@@ -12,7 +12,8 @@ interface IMenuProps {
 
 export function Menu(props: IMenuProps): JSX.Element {
   const [hideMenu, setHideMenu] = useState(true);
-  const { store } = useContext(Context);
+  const { store: {configStore, userStore} } = useContext(Context);
+  const isActive = (link: INavigationLink) => userStore.isAuth === link.needAuth;
 
   useEffect(() => {
     setHideMenu(false);
@@ -30,7 +31,7 @@ export function Menu(props: IMenuProps): JSX.Element {
           classes.menu,
           hideMenu && classes.menu__hide
         )}
-        data-dark={store.configStore.darkMode}
+        data-dark={configStore.darkMode}
         onClick={(e) => e.stopPropagation()}
       >
         <img
@@ -43,7 +44,7 @@ export function Menu(props: IMenuProps): JSX.Element {
         />
         <div className={classes.menu__links}>
           {links
-            .filter((link) => link.needAuth)
+            .filter(isActive)
             .map((link) => (
               <NavigationLink link={link} key={link.text} />
             ))}
