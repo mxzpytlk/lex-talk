@@ -1,15 +1,16 @@
 @import '../../style/variables/color';
-
-$circle-transition: -170px;
+@import '../../style/variables/size';
 
 .auth {
   height: 100vh;
+  display: flex;
+  padding-top: calc(#{$navbar-height} + 16px);
 
   &__container {
     height: 100vh;
+    width: 100%;
     background-image: url('../../assets/yellow_circle.svg');
     background-repeat: no-repeat;
-    background-position: $circle-transition $circle-transition;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -18,8 +19,7 @@ $circle-transition: -170px;
   &__animated {
     position: absolute;
     transition: 0s;
-    top: 160px;
-    left: 240px;
+    height: 400px;
     filter: drop-shadow(0 0 6px $shadow);
     animation: slip 4s ease-in-out infinite;
   }
@@ -36,5 +36,35 @@ $circle-transition: -170px;
 
   100% {
     transform: translatey(5%);
+  }
+}
+
+@media (min-width: $laptop-small-width) {
+  .auth {
+    padding-top: 0;
+
+    &__container {
+      background-size: 720px;
+      background-position: -150px -150px;
+    }
+
+    &__animated {
+      left: 180px;
+      top: 140px;
+    }
+  }
+}
+
+@media (min-width: $laptop-width) {
+  .auth {
+    &__container {
+      background-size: 800px;
+      background-position: -160px -200px;
+    }
+
+    &__animated {
+      left: 240px;
+      top: 160px;
+    }
   }
 }

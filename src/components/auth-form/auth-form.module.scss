@@ -1,18 +1,19 @@
 @import '../../style/variables/color';
+@import '../../style/variables/size';
+
+$form-side-padding: calc(1.5rem / 2 + 12px);
 
 .auth {
   &__form {
     display: flex;
     flex-direction: column;
-    padding: 8px 24px;
-    margin-right: 48px;
-    width: 476px;
+    padding: 8px $form-side-padding 8px $form-side-padding;
     box-sizing: border-box;
-    box-shadow: 0 0 8px 0 $shadow;
-    border-radius: 8px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 
     &[data-dark="true"] {
-      background-color: $light-dark;
       color: white;
     }
   }
@@ -66,5 +67,46 @@
     display: block;
     margin-top: 5px;
     font-size: 1.2rem;
+  }
+}
+
+@media (min-width: $mobile-width) {
+  .auth__form {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: $tablet-width) {
+  .auth__form {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: $laptop-small-width) {
+  .auth__form {
+    margin-right: 12px;
+    box-shadow: 0 0 8px 0 $shadow;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 960px;
+
+    &[data-dark="true"] {
+      background-color: $light-dark;
+    }
+  }
+}
+
+@media (min-width: $laptop-width) {
+  .auth__form {
+    width: 500px;
+    margin-right: 28px;
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: $laptop-large-width) {
+  .auth__form {
+    margin-right: 40px;
+    max-width: 1320px;
   }
 }
