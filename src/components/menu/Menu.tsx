@@ -37,8 +37,6 @@ export function Menu(props: IMenuProps): JSX.Element {
         <img
           src={logo}
           alt=""
-          width="220"
-          height="220"
           className={classes.menu__img}
           onClick={close}
         />

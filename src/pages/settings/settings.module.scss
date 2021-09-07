@@ -1,12 +1,17 @@
 @import '../../style/variables/size';
 @import '../../style/variables/color';
 
+$page-side-padding: calc(1.5rem / 2);
+
 .settings {
   padding-top: 4.5rem;
   margin-left: auto;
   margin-right: auto;
-  max-width: 1320px;
   box-sizing: border-box;
+  padding-right: $page-side-padding;
+  padding-left: $page-side-padding;
+  margin-right: auto;
+  margin-left: auto;
 
   &__title {
     margin-top: 0;
@@ -95,4 +100,34 @@
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 28px;
+}
+
+@media (min-width: $mobile-width) {
+  .settings {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: $tablet-width) {
+  .settings {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: $laptop-small-width) {
+  .settings {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: $laptop-width) {
+  .settings {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: $laptop-large-width) {
+  .settings {
+    max-width: 1320px;
+  }
 }

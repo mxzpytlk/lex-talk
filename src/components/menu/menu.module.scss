@@ -1,10 +1,11 @@
 @import '../../style/variables/color';
+@import '../../style/variables/size';
 
 .menu {
-  width: 30vw;
   height: 100vh;
   background-color: white;
   z-index: 30;
+  width: 70vw;
 
   &[data-dark="true"] {
     background-color: $light-dark;
@@ -28,6 +29,7 @@
     cursor: pointer;
     margin-top: 28px;
     margin-left: 12px;
+    width: 150px;
   }
 
   &__links {
@@ -44,5 +46,51 @@
         margin-top: 24px;
       }
     }
+  }
+}
+
+@media (min-width: $mobile-width) {
+  .menu {
+    width: 50vw;
+
+    &__img {
+      width: 175px;
+    }
+  }
+}
+
+@media (min-width: $tablet-width) {
+  .menu {
+    width: 40vw;
+
+    &__img {
+      width: 200px;
+    }
+  }
+}
+
+@media (min-width: $laptop-small-width) {
+  .menu {
+    width: 35vw;
+
+    &__img {
+      width: 210px;
+    }
+  }
+}
+
+@media (min-width: $laptop-width) {
+  .menu {
+    width: 30vw;
+
+    &__img {
+      width: 220px;
+    }
+  }
+}
+
+@media (min-width: $laptop-large-width) {
+  .menu {
+    width: 30vw;
   }
 }
