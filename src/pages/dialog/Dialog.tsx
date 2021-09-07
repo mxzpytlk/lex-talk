@@ -12,7 +12,7 @@ import { MessagesBlock } from '../../components/messages-block/MessagesBlock';
 function Dialog(): JSX.Element {
   const scrollableElement = useRef<HTMLDivElement>();
   const {
-    store: { messageStore },
+    store: { messageStore, configStore },
   } = useContext(Context);
   const location = useLocation();
   const contact = useMemo(
@@ -36,7 +36,7 @@ function Dialog(): JSX.Element {
   }, [messageStore.messages, location]);
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container} data-dark={configStore.darkMode}>
       <DialogHeader contact={contact} />
       <div className={classes.messages} ref={scrollableElement}>
         {blocks.map((block) => (

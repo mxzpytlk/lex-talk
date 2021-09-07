@@ -1,10 +1,11 @@
 @import '../../style/variables/color';
+@import '../../style/variables/size';
 
 $add-btn-size: 40px;
 
 
 .contacts {
-  width: 35%;
+  width: 100vw;
   height: 100%;
   border-right: 1px solid gray;
   overflow-y: auto;
@@ -73,5 +74,23 @@ $add-btn-size: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+
+@media (min-width: $tablet-width) {
+  .contacts {
+    width: 45vw;
+  }
+}
+
+@media (min-width: $laptop-small-width) {
+  .contacts {
+    width: 40vw;
+  }
+}
+
+@media (min-width: $laptop-width) {
+  .contacts {
+    width: 35vw;
   }
 }

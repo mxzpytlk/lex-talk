@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite';
 import ReactLoading from 'react-loading';
 import { ContactItem } from '../contact-item/ContactItem';
 import { includesCaseInsensitive } from '../../core/utils/string.utils';
-import { Toggler } from '../toggler/Toggler';
+import Toggler from '../toggler/Toggler';
 
 function Contacts(): JSX.Element {
   const [t] = useTranslation();

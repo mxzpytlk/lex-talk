@@ -1,4 +1,5 @@
 @import '../../style/variables/color';
+@import '../../style/variables/size';
 
 .container {
   height: 100vh;
@@ -6,6 +7,13 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 50;
+  background-color: $background;
+
+  &[data-dark="true"] {
+    background-color: $bg-dark;
+  }
 }
 
 .messages {
@@ -35,5 +43,12 @@
   to {
     transform: translateX(0);
     opacity: 1;
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .container {
+    min-width: 100%;
+    left: -100%;
   }
 }

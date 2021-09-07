@@ -6,7 +6,7 @@ import { INavigationLink, links } from '../../../core/data/navigation-link';
 import { ScreenSize } from '../../../store/models/screen-size.store';
 import { Menu } from '../../menu/Menu';
 import { NavigationLink } from '../../navigation-link/NavigationLink';
-import { Toggler } from '../../toggler/Toggler';
+import Toggler from '../../toggler/Toggler';
 
 const NavLinks = () => {
   const {
@@ -25,7 +25,11 @@ const NavLinks = () => {
   ) : (
     <>
       {isTogglerActive && <Menu onClick={() => setIsTogglerActive(false)} />}
-      <Toggler isActive={isTogglerActive} onClick={() => setIsTogglerActive(!isTogglerActive)} />
+      <Toggler
+        isActive={isTogglerActive}
+        isDarkable
+        onClick={() => setIsTogglerActive(!isTogglerActive)}
+      />
     </>
   );
 };

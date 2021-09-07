@@ -1,3 +1,5 @@
+@import '../../style/variables/color';
+
 .toggler {
   display: flex;
   flex-direction: column;
@@ -12,6 +14,14 @@
     height: 2px;
     background-color: white;
     margin-bottom: 6px;
+
+    &[data-darkable="true"] {
+      background-color: black;
+
+      &[data-dark="true"] {
+        background-color: white;
+      }
+    }
 
     &-top {
       transform: rotate(45deg) translateY(6px);

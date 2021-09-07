@@ -1,7 +1,8 @@
 @import '../../style/variables/color';
+@import '../../style/variables/size';
 
 .modal {
-  width: 45vw;
+  width: 80vw;
   background-color: white;
   padding: 8px 12px;
   border-radius: 8px;
@@ -30,5 +31,29 @@
     right: 12px;
     top: 8px;
     cursor: pointer;
+  }
+}
+
+@media (min-width: $mobile-width) {
+  .modal {
+    width: 70vw;
+  }
+}
+
+@media (min-width: $tablet-width) {
+  .modal {
+    width: 60vw;
+  }
+}
+
+@media (min-width: $laptop-small-width) {
+  .modal {
+    width: 50vw;
+  }
+}
+
+@media (min-width: $laptop-width) {
+  .modal {
+    width: 45vw;
   }
 }

@@ -1,10 +1,11 @@
 @import '../../style/variables/color';
+@import '../../style/variables/size';
 
 .message {
   padding: 8px 16px;
   margin: 6px;
   border-radius: 8px;
-  max-width: 35%;
+  max-width: 60vw;
 
   &__img {
     max-width: 100%;
@@ -53,5 +54,23 @@
 
   to {
     transform: translate(0) scale(1);
+  }
+}
+
+@media (min-width: $tablet-width) {
+  .message {
+    max-width: 45vw;
+  }
+}
+
+@media (min-width: $laptop-small-width) {
+  .message {
+    max-width: 40vw;
+  }
+}
+
+@media (min-width: $laptop-width) {
+  .message {
+    max-width: 35vw;
   }
 }
