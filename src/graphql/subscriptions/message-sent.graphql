@@ -1,0 +1,8 @@
+subscription OnMessageSent {
+  messageSent {
+    dateTime
+    text
+    file
+    sender
+  }
+}

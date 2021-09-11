@@ -88,4 +88,8 @@ export class MessagesStore {
       this.messagesLoaded = true;
     }
   }
+
+  public addMessage(message: IMessage): void {
+    this.messages = [...this.messages, message];
+  }
 }

@@ -6,6 +6,20 @@ import { loader } from 'graphql.macro';
 import { AuthService } from '../service/auth.service';
 import { LocalStorageKey } from '../core/enums/local-storage-key';
 import config from '../assets/config.json';
+import { WebSocketLink } from '@apollo/client/link/ws';
+import { split } from '@apollo/client';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { getAuthHeader } from '../core/utils/api.utils';
+
+const wsLink = new WebSocketLink({
+  uri: config.serverSubscriptionUrl,
+  options: {
+    reconnect: true,
+    connectionParams: {
+      authorization: getAuthHeader(),
+    },
+  },
+});
 
 export const SERVER_URL = config.serverUrl;
 const REFRESH_QUERY = loader('../graphql/queries/refresh.graphql');
@@ -15,6 +29,19 @@ const httpLink: any = createUploadLink({
   uri: `${SERVER_URL}/graphql`,
   credentials: 'include',
 });
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const splitLink: any = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  httpLink,
+);
 
 const logoutLink = onError((data) => {
   const { graphQLErrors, operation, forward } = data;
@@ -42,5 +69,5 @@ const logoutLink = onError((data) => {
 
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: from([authMiddleware, logoutLink, httpLink]),
+  link: from([authMiddleware, logoutLink, splitLink]),
 });

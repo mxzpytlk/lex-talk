@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { capitalize } from '../../core/utils/string.utils';
 import classes from './dialog-input.module.scss';
 import { loader } from 'graphql.macro';
 import { useMutation } from 'react-apollo';
 import { sendImg } from '../../core/utils/image.utils';
+import { Context } from '../../';
+import { IMessage, MessageType } from '../../core/data/message';
 
 interface IDialogInputProps {
 	contactId: string;
@@ -18,6 +20,9 @@ export function DialogInput({ contactId }: IDialogInputProps): JSX.Element {
   const [text, setText] = useState('');
   const fileInput = useRef<HTMLInputElement>(null);
   const [sendMessageMutation] = useMutation(SEND_MESSAGE_MUTATION);
+  const {
+    store: { messageStore, userStore },
+  } = useContext(Context);
 
   const sendMessage = () => {
     sendMessageMutation({
@@ -26,6 +31,13 @@ export function DialogInput({ contactId }: IDialogInputProps): JSX.Element {
         contactId,
       },
     });
+    const message: IMessage = {
+      text,
+      dateTime: new Date(),
+      type: MessageType.TEXT,
+      sender: userStore.user.id,
+    };
+    messageStore.addMessage(message);
     setText('');
   };
 
@@ -33,6 +45,19 @@ export function DialogInput({ contactId }: IDialogInputProps): JSX.Element {
     const file = e.target.files?.[0];
     if (file) {
       await sendImg(file, contactId);
+      // TODO Сделать обновление изображений
+      // const fileUrl = window.URL.createObjectURL(file);
+      // const img = new Image();
+      // img.src = fileUrl;
+      // img.onload = () => {
+      //   const message: IMessage = {
+      //     file: fileUrl,
+      //     dateTime: new Date(),
+      //     type: MessageType.FILE,
+      //     sender: userStore.user.id,
+      //   };
+      //   messageStore.addMessage(message);
+      // };
     }
   };
 

@@ -8,12 +8,24 @@ import { findHrefParam } from '../../core/utils/navigation.utils';
 import { DialogInput } from '../../components/dialog-input/DialogInput';
 import { DialogHeader } from '../../components/dialog-header/DialogHeader';
 import { MessagesBlock } from '../../components/messages-block/MessagesBlock';
+import { useMessagesSubscription } from '../../hooks/use-messages-subscribe';
+import { MessageData } from '../../core/data/message';
 
 function Dialog(): JSX.Element {
-  const scrollableElement = useRef<HTMLDivElement>();
   const {
     store: { messageStore, configStore },
   } = useContext(Context);
+
+  const newMessage = useMessagesSubscription();
+
+  useEffect(() => {
+    if (newMessage) {
+      messageStore.addMessage(new MessageData(newMessage));
+    }
+  }, [newMessage]);
+
+  const scrollableElement = useRef<HTMLDivElement>();
+
   const location = useLocation();
   const contact = useMemo(
     () => messageStore.getContact(findHrefParam(location.pathname, RouterPath.DIALOG, 'id')),
